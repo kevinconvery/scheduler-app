@@ -14,7 +14,7 @@ label {
   margin-right: 1rem;
 }
 
-.driver-dropdown {
+.dropdown-menu {
   padding: 5px;
 }
 
@@ -39,8 +39,4 @@ label {
 .week-select-right {
   background: url('/images/right-arrow.png') no-repeat;
   background-size: 100%;
-}
-
-span {
-
 }

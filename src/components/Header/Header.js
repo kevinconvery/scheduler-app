@@ -2,8 +2,25 @@ import React from 'react'
 import './Header.css'
 
 const Header = props => {
+  const { week, updateDriver, updateWeek, updateScheduleInterval } = props
   const handleChange = e => {
+    // one function for both updates
+    switch(e.target.name) {
+      case 'driver-dropdown':
+        console.log('in here')
+        updateDriver(parseInt(e.target.value))
+        break
+      case 'download-dropdown':
+        updateScheduleInterval(parseInt(e.target.value))
+        break
+      default:
+        break
+    }
     console.log(`${[e.target.name]}: ${e.target.value}`)
+  }
+
+  const handleClick = e => {
+    e.target.className.includes('week-select-right') ? updateWeek(week + 1) : updateWeek(week - 1)
   }
 
   return (
@@ -14,7 +31,7 @@ const Header = props => {
         </label>
         <select 
           name="driver-dropdown" 
-          className="driver-dropdown"
+          className="dropdown-menu driver-dropdown"
           onChange={handleChange}
         >
           <option value={0} key={0}>-- Select a driver --</option>
@@ -24,13 +41,21 @@ const Header = props => {
         </select>
       </div>
       <div className="week-select-section">
-        <button className="week-select-button week-select-left" /><span>Week 1</span><button className="week-select-button week-select-right" />
+        {week > 1 && <button 
+          className="week-select-button week-select-left"
+          onClick={handleClick} 
+        />}
+        <span>Week {week}</span>
+        {week < 52 && <button 
+          className="week-select-button week-select-right"
+          onClick={handleClick} 
+        />}
       </div>
       <div className="download-schedule-section">
         <label htmlFor="download-dropdown">Download Schedule:</label>
         <select 
           name="download-dropdown" 
-          className="download-dropdown"
+          className="dropdown-menu download-dropdown"
           onChange={handleChange}
         >
           <option value={0} key={0}>-- Select an interval --</option>
