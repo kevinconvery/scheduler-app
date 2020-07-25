@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Header from './components/Header/Header'
+import Schedule from './components/Schedule/Schedule'
 
 function App() {
   const [currentWeek, setCurrentWeek] = useState(1)
@@ -14,6 +15,7 @@ function App() {
         updateDriver={setCurrentDriver}
         updateScheduleInterval={setScheduleInterval} 
       />
+      <Schedule />
     </div>
   )
 }
