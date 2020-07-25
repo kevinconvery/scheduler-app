@@ -1,0 +1,30 @@
+.schedule-header {
+  height: 60px;
+}
+
+.schedule-header ul {
+  background: lightgray;
+  display: flex;
+}
+
+.schedule-header li {
+  padding: 1.2rem;
+}
+
+.schedule-sidebar {
+  width: 15%;
+}
+
+.schedule-sidebar ul, .schedule-header ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.schedule-sidebar ul {
+  background: darkslategray;
+}
+
+.schedule-sidebar li {
+  padding: 1rem 2rem;
+}

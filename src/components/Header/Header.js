@@ -7,7 +7,6 @@ const Header = props => {
     // one function for both updates
     switch(e.target.name) {
       case 'driver-dropdown':
-        console.log('in here')
         updateDriver(parseInt(e.target.value))
         break
       case 'download-dropdown':
