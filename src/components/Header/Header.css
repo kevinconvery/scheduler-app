@@ -1,0 +1,46 @@
+.Header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 96%;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+label {
+  margin-right: 1rem;
+}
+
+.driver-dropdown {
+  padding: 5px;
+}
+
+.week-select-section {
+  display: flex;
+  align-items: center;
+}
+
+.week-select-button {
+  border: none;
+  height: 30px;
+  width: 30px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.week-select-left {
+  background: url('/images/left-arrow.png') no-repeat;
+  background-size: 100%
+}
+
+.week-select-right {
+  background: url('/images/right-arrow.png') no-repeat;
+  background-size: 100%;
+}
+
+span {
+
+}
