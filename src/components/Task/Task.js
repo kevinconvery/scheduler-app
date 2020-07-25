@@ -4,7 +4,7 @@ const Task = props => {
 
   return (
     <div className="Task">
-
+      SCHEDULE HERE
     </div>
   )
 }
