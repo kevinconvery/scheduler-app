@@ -128,3 +128,5 @@ export const scheduleTimes = [
     key: 24, value: '12 AM'
   }
 ]
+
+export const weekdays = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]

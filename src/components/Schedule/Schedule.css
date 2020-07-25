@@ -1,10 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .schedule-header {
   height: 60px;
+  margin-left: 15%;
 }
 
 .schedule-header ul {
   background: lightgray;
   display: flex;
+  justify-content: space-evenly;
 }
 
 .schedule-header li {
