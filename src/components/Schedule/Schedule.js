@@ -1,5 +1,5 @@
 import React from 'react'
-import { scheduleTimes, weekdays } from '../../data'
+import { scheduleTimes, weekdays, gridCoordinates } from '../../data'
 import './Schedule.css'
 
 const Schedule = props => {
@@ -19,16 +19,25 @@ const Schedule = props => {
         <div className="schedule-sidebar">
           <ul>
             {scheduleTimes.map(time => (
-              <li key={time.key}>{time.value}</li>
+              <li key={scheduleTimes.indexOf(time)}>{time}</li>
             ))}
           </ul>
+        </div>
+        <div className="schedule-grid">
+          {gridCoordinates.map(coordinate => {
+            const { day, time } = coordinate
+            return (
+              <div className="cell" key={`D${day}T${time}`}>
+                {scheduleTimes[time]}, {weekdays[day]}
+              </div>
+          )})}
         </div>
       </div>
     </div>
   )
 }
       
-      export default Schedule
+export default Schedule
       
 
       

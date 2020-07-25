@@ -51,82 +51,26 @@ export const taskList = [
   }
 ]
 
-export const scheduleTimes = [
-  { 
-    key: 0, value: '12 AM'
-  },
-  {
-    key: 1, value: '1 AM',
-  },
-  {
-    key: 2, value: '2 AM',
-  },
-  {
-    key: 3, value: '3 AM',
-  },
-  {
-    key: 4, value: '4 AM',
-  },
-  {
-    key: 5, value: '5 AM',
-  },
-  {
-    key: 6, value: '6 AM',
-  },
-  {
-    key: 7, value: '7 AM',
-  },
-  {
-    key: 8, value: '8 AM',
-  },
-  {
-    key: 9, value: '9 AM',
-  },
-  {
-    key: 10, value: '10 AM',
-  },
-  {
-    key: 11, value: '11 AM',
-  },
-  {
-    key: 12, value: '12 PM',
-  },
-  {
-    key: 13, value: '1 PM',
-  },
-  {
-    key: 14, value: '2 PM',
-  },
-  {
-    key: 15, value: '3 PM',
-  },
-  {
-    key: 16, value: '4 PM',
-  },
-  {
-    key: 17, value: '5 PM',
-  },
-  {
-    key: 18, value: '6 PM',
-  },
-  {
-    key: 19, value: '7 PM',
-  },
-  {
-    key: 20, value: '8 PM',
-  },
-  {
-    key: 21, value: '9 PM',
-  },
-  {
-    key: 22, value: '10 PM',
-  },
-  {
-    key: 23, value: '11 PM',
-  },
-  {
-    key: 24, value: '12 AM'
-  }
+export const scheduleTimes = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM', 
+  '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 AM', '1 PM', '2 PM', 
+  '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM', '12 PM'
 ]
 
 export const weekdays = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]
+
+const populateGridCoordinates = () => {
+  const array = []
+
+  weekdays.forEach(weekday => {
+    scheduleTimes.forEach(time => {
+      array.push({
+        day: weekdays.indexOf(weekday),
+        time: scheduleTimes.indexOf(time)
+      })
+    })
+  })
+  
+  return array
+}
+
+export const gridCoordinates = populateGridCoordinates()
