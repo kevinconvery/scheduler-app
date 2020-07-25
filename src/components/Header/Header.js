@@ -3,19 +3,14 @@ import './Header.css'
 
 const Header = props => {
   const { week, updateDriver, updateWeek, updateScheduleInterval } = props
-  const handleChange = e => {
-    // one function for both updates
-    switch(e.target.name) {
-      case 'driver-dropdown':
-        updateDriver(parseInt(e.target.value))
-        break
-      case 'download-dropdown':
-        updateScheduleInterval(parseInt(e.target.value))
-        break
-      default:
-        break
-    }
+  const handleChangeDriver = e => {
+    updateDriver(parseInt(e.target.value))
     console.log(`${[e.target.name]}: ${e.target.value}`)
+  }
+
+  const handleChangeInterval = e => {
+    updateScheduleInterval(parseInt(e.target.value))
+    console.log(`${[e.target.name]}: ${e.target.value}`)   
   }
 
   const handleClick = e => {
@@ -31,7 +26,7 @@ const Header = props => {
         <select 
           name="driver-dropdown" 
           className="dropdown-menu driver-dropdown"
-          onChange={handleChange}
+          onChange={handleChangeDriver}
         >
           <option value={0} key={0}>-- Select a driver --</option>
           <option value={1} key={1}>George</option>
@@ -55,7 +50,7 @@ const Header = props => {
         <select 
           name="download-dropdown" 
           className="dropdown-menu download-dropdown"
-          onChange={handleChange}
+          onChange={handleChangeInterval}
         >
           <option value={0} key={0}>-- Select an interval --</option>
           <option value={2} key={2}>2 days</option>
