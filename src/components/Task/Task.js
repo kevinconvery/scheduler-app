@@ -2,7 +2,7 @@ import React from 'react'
 import './Task.css'
 
 const Task = props => {
-  const { start, end, type, length, taskID, updateTask, deleteTask } = props
+  const { start, end, type, length, taskID } = props
 
   return (
     <div 
