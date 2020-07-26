@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Header from './components/Header/Header'
 import Schedule from './components/Schedule/Schedule'
 import { taskList } from './data'
+import './App.css'
 
 const App = () => {
   const [currentWeek, setCurrentWeek] = useState(1)
@@ -9,18 +10,40 @@ const App = () => {
   const [scheduleInterval, setScheduleInterval] = useState(0)
   const [driverSchedule, setDriverSchedule] = useState([])
   const [fullSchedule, setFullSchedule] = useState([])
+  const [createModalVisible, setCreateModalVisible] = useState(false)
+  const [editModalVisible, setEditModalVisible] = useState(false)
 
-  const createTask = () => {
-
+  const toggleModalVisibility = type => {
+    let visibility
+    switch (type) {
+      case "CREATE":
+        editModalVisible && (setEditModalVisible(false))
+        visibility = createModalVisible
+        console.log("create modal toggle fired")
+        setCreateModalVisible(!visibility)
+        break
+      case "EDIT":
+        createModalVisible && (setCreateModalVisible(false))
+        visibility = editModalVisible
+        setEditModalVisible(!visibility)
+        break
+      default:
+        break
+    }
   }
 
-  const updateTask = () => {
-    
-  }
+  // task management functions in controller (app)
+  // const createTask = task => {
 
-  const deleteTask = () => {
+  // }
 
-  }
+  // const updateTask = task_id => {
+
+  // }
+
+  // const deleteTask = task_id => {
+
+  // }
 
   useEffect(() => {
     if (fullSchedule.length === 0) {
@@ -42,7 +65,14 @@ const App = () => {
         updateDriver={setCurrentDriver}
         updateScheduleInterval={setScheduleInterval} 
       />
-      <Schedule driverSchedule={driverSchedule} week={currentWeek} />
+
+      <Schedule 
+        driverSchedule={driverSchedule} 
+        week={currentWeek}
+        toggleModal={toggleModalVisibility}
+        createModalVisible={createModalVisible}
+        editModalVisible={editModalVisible} 
+      />
     </div>
   )
 }
