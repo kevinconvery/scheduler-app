@@ -33,17 +33,20 @@ const App = () => {
   }
 
   // task management functions in controller (app)
-  // const createTask = task => {
+  const createTask = taskObject => {
+    console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
+    const schedule = fullSchedule
+    schedule.push(taskObject)
+    setFullSchedule(schedule)
+  }
 
-  // }
+  const updateTask = task_id => {
 
-  // const updateTask = task_id => {
+  }
 
-  // }
+  const deleteTask = task_id => {
 
-  // const deleteTask = task_id => {
-
-  // }
+  }
 
   useEffect(() => {
     if (fullSchedule.length === 0) {
@@ -71,7 +74,10 @@ const App = () => {
         week={currentWeek}
         toggleModal={toggleModalVisibility}
         createModalVisible={createModalVisible}
-        editModalVisible={editModalVisible} 
+        editModalVisible={editModalVisible}
+        createTask={createTask}
+        updateTask={updateTask}
+        deleteTask={deleteTask} 
       />
     </div>
   )
