@@ -12,6 +12,7 @@
   background: lightgray;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 .schedule-header li {
@@ -38,7 +39,7 @@
 }
 
 .schedule-sidebar li {
-  padding: 1rem 2rem;
+  padding: 0.9rem 2rem;
 }
 
 .schedule-content-container {
@@ -59,7 +60,6 @@
 
 .grid-cell {
   height: 50px;
-  padding: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
