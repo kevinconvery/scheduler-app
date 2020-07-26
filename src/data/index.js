@@ -48,7 +48,57 @@ export const taskList = [
     location: '',
     description: '',
     driver_id: 2
-  }
+  },
+  {
+    day: 5,
+    week: 3,
+    start: 1,
+    end: 3,
+    type: 'Pickup',
+    location: '',
+    description: '',
+    driver_id: 3
+  },
+  {
+    day: 1,
+    week: 11,
+    start: 3,
+    end: 4,
+    type: 'Pickup',
+    location: '',
+    description: '',
+    driver_id: 1
+  },
+  {
+    day: 5,
+    week: 3,
+    start: 6,
+    end: 8,
+    type: 'Dropoff',
+    location: '',
+    description: '',
+    driver_id: 2
+  },
+  {
+    day: 1,
+    week: 1,
+    start: 5,
+    end: 7,
+    type: 'Other',
+    location: '',
+    description: '',
+    driver_id: 3
+  },
+  {
+    day: 5,
+    week: 1,
+    start: 4,
+    end: 5,
+    type: 'Pickup',
+    location: '',
+    description: '',
+    driver_id: 1
+  },
 ]
 
 export const scheduleTimes = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM', 
@@ -71,6 +121,39 @@ const populateGridCoordinates = () => {
   })
   
   return array
+}
+
+const getRandomNumber = size => {
+  return Math.floor(Math.random() * size)
+}
+
+const generateRandomTask = () => {
+  const taskTypes = [ 'Dropoff', 'Pickup', 'Other' ]
+  let taskObject = {
+    day: getRandomNumber(weekdays.length),
+    week: getRandomNumber(4) + 1,
+    start: getRandomNumber(scheduleTimes.length),
+    type: taskTypes[getRandomNumber(3)],
+    location: '',
+    description: '',
+    driver_id: getRandomNumber(3) + 1
+  }
+  // maximum four hour length on any individual task
+  if (scheduleTimes.length - taskObject.start < 4) {
+    taskObject.end = taskObject.start + getRandomNumber(scheduleTimes.length - taskObject.start)
+  } else {
+    taskObject.end = taskObject.start + getRandomNumber(4)
+  }
+  taskObject.end = taskObject.start + getRandomNumber(scheduleTimes.length - taskObject.start)
+  return taskObject
+}
+
+export const generateRandomSchedule = numberOfTasks => {
+  const taskArray = []
+  for (let i = 0; i < numberOfTasks; i++) {
+    taskArray.push(generateRandomTask())
+  }
+  return Array.from(new Set(taskArray))
 }
 
 export const gridCoordinates = populateGridCoordinates()
