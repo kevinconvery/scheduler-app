@@ -1,31 +1,87 @@
-import React, { useState, useEffect } from 'react'
-import { scheduleTimes, taskTypes, weekdays } from '../../data'
+import React, { useState } from 'react'
+import { scheduleTimes, taskTypes, weekdays, drivers } from '../../data'
 import './Modal.css'
 
 const Modal = props => {
-  const { modalType, toggleModalView } = props
-  const [taskWeek, setTaskWeek] = useState()
-  const [taskDay, setTaskDay] = useState()
+  const { modalType, toggleModalView, createTask, updateTask, deleteTask } = props
+  const [taskWeek, setTaskWeek] = useState(1)
+  const [taskDay, setTaskDay] = useState(0)
   const [startTime, setStartTime] = useState()
   const [endTime, setEndTime] = useState()
   const [taskType, setTaskType] = useState("")
-  const [description, setDescription] = useState("")
-  const [location, setLocation] = useState("")
-  const [driver, setDriver] = useState()
+  const [taskDescription, setTaskDescription] = useState("")
+  const [taskLocation, setTaskLocation] = useState("")
+  const [driver, setDriver] = useState(1)
 
   const handleSubmit = e => {
     e.preventDefault()
+    const newTask = {
+      day: parseInt(taskDay),
+      week: parseInt(taskWeek),
+      driver_id: parseInt(driver),
+      start: parseInt(startTime),
+      end: parseInt(endTime),
+      type: taskType,
+      description: taskDescription,
+      location: taskLocation
+    }
 
+    createTask(newTask)
   }
 
-  {return modalType === 'CREATE' ? ( 
+  return modalType === 'CREATE' ? ( 
     <div className="Modal">
       <h3>CREATE ITEM MODAL VIEW</h3>
       <form
         className="create-item-form" 
         onSubmit={handleSubmit}
       >
-        <div class="form-field">
+        <div className="form-field">
+          <label htmlFor="driver">Driver:</label>
+          <select 
+            name="driver"
+            onChange={e => setDriver(e.target.value)}
+            value={driver}
+          >
+            <option value="">-- Select a driver --</option>
+            {drivers.map(driver => (
+              <option key={driver} value={drivers.indexOf(driver) + 1}>{driver}</option>
+            ))}
+          </select>
+        </div>
+        <div className="form-field">
+        <label htmlFor="week">Week of task:</label>
+          <select 
+            name="week"
+            onChange={e => setTaskWeek(e.target.value)}
+            value={taskWeek}
+          >
+            {Array(52)
+              .fill()
+              .map((key, value) => (
+                <option 
+                  key={`week-${value}`} 
+                  value={(value + 1)}
+                >
+                  {value + 1}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="form-field">
+          <label htmlFor="task-day">Day of task:</label>
+          <select 
+            name="task-day"
+            value={taskDay}
+            onChange={e => setTaskDay(e.target.value)}
+          >
+            {weekdays.map(weekday => (
+              <option value={weekdays.indexOf(weekday)} key={weekday}>{weekday}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-field">
           <label htmlFor="start-time">Start Time:</label>
           <select 
             name="start-time"
@@ -46,7 +102,7 @@ const Modal = props => {
             )}
           </select>
         </div>
-        <div class="form-field">
+        <div className="form-field">
           <label htmlFor="end-time">End Time:</label>
           <select 
             name="end-time"
@@ -56,7 +112,7 @@ const Modal = props => {
             <option
               key="default-end-time"
               value="" 
-              selected
+              defaultValue
             >
               -- Select an ending time --
             </option>
@@ -73,7 +129,7 @@ const Modal = props => {
             )}
           </select>
         </div>
-        <div class="form-field">
+        <div className="form-field">
           <label htmlFor="task-type">What type of task is this?</label>
           <select 
             name="task-type"
@@ -105,8 +161,8 @@ const Modal = props => {
           <input 
             type="text"
             className="text-description-field"
-            value={description}
-            onChange={e => setDescription(e.target.value)}
+            value={taskDescription}
+            onChange={e => setTaskDescription(e.target.value)}
           />
         </div>
         <div className="form-field">
@@ -116,13 +172,16 @@ const Modal = props => {
           <input
             type="text"
             className="text-location-field"
-            value={location}
-            onChange={e => setLocation(e.target.value)}
+            value={taskLocation}
+            onChange={e => setTaskLocation(e.target.value)}
           />
         </div>
-        <div className="form-field">
-          
-        </div>
+        <button 
+          type="submit"
+          className="create-task-button"
+        >
+          Create Task
+        </button>
       </form>
       <button
         className="toggle-modal-view-button"
@@ -139,7 +198,7 @@ const Modal = props => {
       >
         Toggle View</button>
     </div>    
-  )}
+  )
 }
 
 export default Modal

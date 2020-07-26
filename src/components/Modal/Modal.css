@@ -43,3 +43,10 @@
   width: 30vw;
   font-family: 'Roboto', sans-serif;
 }
+
+.create-task-button {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: none;
+  background: #bebebe
+}
