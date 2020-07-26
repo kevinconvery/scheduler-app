@@ -1,5 +1,5 @@
 import React from 'react'
-import { scheduleTimes, weekdays, gridCoordinates } from '../../data'
+import { scheduleTimes, weekdays } from '../../data'
 import './Schedule.css'
 import Task from '../Task/Task'
 
@@ -10,9 +10,34 @@ const Schedule = props => {
     const testArray = driverSchedule.filter(task => (
       task.week === week 
       && task.day === day 
-      && (task.start <= hour && task.end >= hour)
+      && (task.start === hour)
     ))
-    return testArray.length > 0
+
+    const between = driverSchedule.filter(task => (
+      task.week === week && task.day === day && (task.start < hour && task.end > hour
+    )))
+
+    if (between.length > 0) return
+
+    if (testArray.length > 0) {
+      const { start, end, type } = testArray[0]
+      return (
+        <Task 
+          start={start} 
+          end={end} 
+          type={type}
+          length={end - start}
+        />
+      )  
+    } else {
+      return (
+        <div 
+          className={`cell-w${week}-d${day}-h${hour} grid-cell`} 
+          key={`W${week}D${day}H${hour}`}
+        >
+        </div>
+      )
+    }
   }
 
   return (
@@ -36,20 +61,11 @@ const Schedule = props => {
           <div className="schedule-grid">
             {weekdays.map(weekday => (
               <div 
-                className={`${weekday}-column grid-column`}
+                className="grid-column"
                 key={weekday}
               >
                 {scheduleTimes.map(time => (
-                  <div 
-                    className={`cell-${time}-${weekday} grid-cell`} 
-                    key={`W${week}D${weekdays.indexOf(weekday)}T${scheduleTimes.indexOf(time)}`}
-                    onClick={() => console.log(`day ${weekdays.indexOf(weekday)} time ${scheduleTimes.indexOf(time)} cell clicked`)}
-                  >
-                    {taskInSchedule(week, weekdays.indexOf(weekday), scheduleTimes.indexOf(time))
-                      ? <Task />
-                      : `W${week}D${weekdays.indexOf(weekday)}T${scheduleTimes.indexOf(time)}`
-                    }
-                  </div>
+                  taskInSchedule(week, weekdays.indexOf(weekday), scheduleTimes.indexOf(time))
                 ))}
               </div> 
             ))}
