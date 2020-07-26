@@ -10,7 +10,10 @@ const Schedule = props => {
     week,
     toggleModal,
     createModalVisible,
-    editModalVisible
+    editModalVisible,
+    createTask,
+    updateTask,
+    deleteTask
   } = props
 
   const taskInSchedule = (week, day, hour) => {
@@ -49,10 +52,11 @@ const Schedule = props => {
     }
   }
 
-  {return (createModalVisible || editModalVisible) ? (
+  return createModalVisible || editModalVisible ? (
     <Modal 
       modalType="CREATE"
-      toggleModalView={toggleModal} 
+      toggleModalView={toggleModal}
+      createTask={createTask} 
     />
   ) : (
     <div className="Schedule">
@@ -87,7 +91,7 @@ const Schedule = props => {
         </div> 
       </div>
     </div>
-  )}
+  )
 }
       
 export default Schedule
