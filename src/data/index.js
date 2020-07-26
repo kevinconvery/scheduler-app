@@ -106,7 +106,11 @@ export const scheduleTimes = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM',
   '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM'
 ]
 
+export const taskTypes = ['Pickup', 'Dropoff', 'Other']
+
 export const weekdays = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]
+
+export const drivers = [ 'George', 'Shane', 'Tania' ]
 
 const populateGridCoordinates = () => {
   const array = []
