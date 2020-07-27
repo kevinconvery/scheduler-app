@@ -11,6 +11,8 @@ const Schedule = props => {
     toggleModal,
     createModalVisible,
     editModalVisible,
+    errorModalVisible,
+    errorMessage,
     createTask,
     updateTask,
     currentTask,
@@ -77,7 +79,9 @@ const Schedule = props => {
       createTask={createTask}
       currentTask={currentTask}
       updateTask={updateTask}
-      deleteTask={deleteTask} 
+      deleteTask={deleteTask}
+      errorModalVisible={errorModalVisible}
+      errorMessage={errorMessage} 
     />
   ) : (
     <div className="Schedule">
