@@ -44,6 +44,11 @@ const Modal = props => {
     updateTask(editTask)
   }
 
+  const handleDeleteTask = e => {
+    e.preventDefault()
+    deleteTask()
+  }
+
   return modalType === 'CREATE' ? ( 
     <div className="Modal">
       <h3>CREATE ITEM MODAL VIEW</h3>
@@ -326,6 +331,9 @@ const Modal = props => {
           className="update-task-button"
         >
           Update Task
+        </button>
+        <button onClick={e => handleDeleteTask(e)}>
+          Delete Task
         </button>
       </form>
       <button

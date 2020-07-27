@@ -60,13 +60,9 @@ const App = () => {
   }
 
   const updateTask = taskObject => {
-    console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
-    console.log(`index of current task in full schedule: ${fullSchedule.indexOf(currentTask)}`)
-    console.log(`fullSchedule.length - ${fullSchedule.length}`)
     const index = fullSchedule.indexOf(currentTask)
     let schedule = fullSchedule
     schedule.splice(index, 1, taskObject)
-    console.log(`value of schedule: ${JSON.stringify(schedule, null, 4)}`)
     setFullSchedule(schedule)
     setDriverSchedule(
       fullSchedule.filter(task => (
@@ -74,10 +70,22 @@ const App = () => {
       ))
     )
     setEditModalVisible(false)
+    setCurrentTask()
   }
 
-  const deleteTask = task_id => {
-
+  const deleteTask = () => {
+    console.log('clickin delete!!')
+    const index = fullSchedule.indexOf(currentTask)
+    let schedule = fullSchedule
+    schedule.splice(index, 1)
+    setFullSchedule(schedule)
+    setDriverSchedule(
+      fullSchedule.filter(task => (
+        task.driver_id === currentDriver
+      ))
+    )
+    setEditModalVisible(false)
+    setCurrentTask()    
   }
 
   useEffect(() => {
