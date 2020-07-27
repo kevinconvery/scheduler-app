@@ -40,11 +40,18 @@ const Modal = props => {
     return taskObject
   }
 
-  const confirmOverwrite = e => {
+  const confirmCreateOverwrite = e => {
     e.preventDefault()
     toggleModalView("ERROR")
     toggleModalView("CREATE")
-    updateTask(buildTaskObjectFromState())
+    updateTask(buildTaskObjectFromState(), true)
+  }
+
+  const confirmUpdateOverwrite = e => {
+    e.preventDefault()
+    toggleModalView("ERROR")
+    toggleModalView("EDIT")
+    deleteTask(editTask)
   }
 
   const handleCreateItemSubmit = e => {
@@ -215,7 +222,7 @@ const Modal = props => {
           <div className="button-section">
             <button 
               className="confirm-overwrite-button"
-              onClick={e => confirmOverwrite(e)}
+              onClick={e => confirmCreateOverwrite(e)}
             >
               Confirm
             </button>
@@ -370,6 +377,27 @@ const Modal = props => {
           Delete Task
         </button>
       </form>
+      {errorModalVisible && (
+        <div className="error-modal">
+          <div className="error-message">
+            Error: {errorMessage}
+          </div>
+          <div className="button-section">
+            <button 
+              className="confirm-overwrite-button"
+              onClick={e => confirmUpdateOverwrite(e)}
+            >
+              Confirm
+            </button>
+            <button 
+              className="toggle-modal-view-button"
+              onClick={() => toggleModalView("ERROR")}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
       <button
         className="toggle-modal-view-button" 
         onClick={() => toggleModalView("EDIT")}

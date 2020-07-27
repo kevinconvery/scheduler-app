@@ -17,7 +17,39 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [currentTask, setCurrentTask] = useState()
 
-  const toggleModalVisibility = (type) => {
+  const refreshDriverSchedule = () => {
+    setDriverSchedule(
+      fullSchedule.filter(task => (
+        task.driver_id === currentDriver
+      ))
+    )
+  }
+
+  const handleError = error => {
+    setErrorModalVisible(true)
+    switch (error) {
+      case `CREATE_CONFLICT`:
+        setErrorMessage(`
+          Creating this task would cause it to conflict with another task. Would you
+          like to overwrite the existing task?
+        `)
+        break
+      case `UPDATE_CONFLICT`:
+        setErrorMessage(
+          `Updating this task would cause it to conflict with another task. Would you like 
+          to delete the previous task you had booked?`)
+        break
+      case `INVALID_TIME`:
+        setErrorMessage(
+          `You cannot book an appointment with a start time after the end time.`
+        )
+        break
+      default:
+        break
+    }
+  }
+
+  const toggleModalVisibility = type => {
     let visibility
     switch (type) {
       case "CREATE":
@@ -42,28 +74,23 @@ const App = () => {
   // task management functions in controller (app)
   const createTask = taskObject => {
     console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
-    const schedule = fullSchedule
-    if (!taskConflict(taskObject)) {
+    if (!taskConflict(taskObject, "Create")) {
+      const schedule = fullSchedule
       // go ahead and create the object
       schedule.push(taskObject)
       setFullSchedule(schedule)
-      setDriverSchedule(
-        fullSchedule.filter(task => (
-          task.driver_id === currentDriver
-        ))
-      )
+      refreshDriverSchedule()
       setCreateModalVisible(false)   
     } else {
-      setErrorModalVisible(true)
-      setErrorMessage("This would conflict with another task. Are you sure you'd like to overwrite this?")
+      handleError("CREATE_CONFLICT")
     }
   }
 
-  // will return a boolean result if there is a conflict
-  // a conflict is defined as same driver, day, week and:
-  // todo
-  const taskConflict = taskObject => {
-    const conflict = fullSchedule.filter((item) => (
+  const getConflictArray = taskObject => {
+    return fullSchedule.filter((item) => (
+      // matching week, day, driver_id then checking 
+      // if either the start or end times are between an 
+      // existing time in the schedule
       item.week === taskObject.week
       && item.day === taskObject.day
       && item.driver_id === taskObject.driver_id
@@ -77,43 +104,71 @@ const App = () => {
         )
       )
     ))
-    console.log(`length of conflict array: ${conflict.length}`)
+  }
+
+  const taskConflict = (taskObject, conflictType) => {
+    const conflict = getConflictArray(taskObject)
+    // if it exists in the update case and is the current task, return false
+    if (conflictType === "Update") {
+      if (conflict.length === 1) {
+        return false
+      } else {
+        console.log('fired here')
+        console.log(`conflict array: ${JSON.stringify(conflict, null, 4)}`)
+        return true
+      }
+    }
+
     if (conflict.length > 0) {
-      // console.log(`CONFLICT:`)
-      // console.log(`Object found in full schedule: ${JSON.stringify(conflict[0], null, 4)}`)
-      // console.log(`New object being updated or created: ${JSON.stringify(taskObject, null, 4)}`)
+      console.log(`CONFLICT:`)
+      console.log(`Object found in full schedule: ${JSON.stringify(conflict[0], null, 4)}`)
+      console.log(`New object being updated or created: ${JSON.stringify(taskObject, null, 4)}`)
       return true
     } else {
       return false
     }
   }
 
-  const updateTask = taskObject => {
-    const index = fullSchedule.indexOf(currentTask)
-    let schedule = fullSchedule
-    schedule.splice(index, 1, taskObject)
-    setFullSchedule(schedule)
-    setDriverSchedule(
-      fullSchedule.filter(task => (
-        task.driver_id === currentDriver
-      ))
-    )
-    setEditModalVisible(false)
-    setCurrentTask()
+  const updateTask = (taskObject, overwrite = false) => {
+    console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
+    // we want to compare with the current task item removed since we know there's a conflict there
+    if (!taskConflict(taskObject, "Update") || overwrite) {
+      // assign again here, since we want to replace the item in the full schedule
+      const index = fullSchedule.indexOf(currentTask)
+      let schedule = fullSchedule
+      schedule.splice(index, 1, taskObject)
+      setFullSchedule(schedule)
+      refreshDriverSchedule()
+      console.log(`length of full schedule: ${fullSchedule.length}`)
+      setEditModalVisible(false)
+      setCurrentTask()
+    } else {
+      handleError("UPDATE_CONFLICT")
+    }
   }
 
-  const deleteTask = () => {
-    const index = fullSchedule.indexOf(currentTask)
-    let schedule = fullSchedule
-    schedule.splice(index, 1)
-    setFullSchedule(schedule)
-    setDriverSchedule(
-      fullSchedule.filter(task => (
-        task.driver_id === currentDriver
-      ))
-    )
-    setEditModalVisible(false)
-    setCurrentTask()    
+  const deleteTask = (taskObject = null) => {
+    if (!taskObject) {
+      const index = fullSchedule.indexOf(currentTask)
+      let schedule = fullSchedule
+      schedule.splice(index, 1)
+      setFullSchedule(schedule)
+      refreshDriverSchedule()
+      setEditModalVisible(false)
+      setCurrentTask()    
+    } else {
+      const conflict = getConflictArray(taskObject)
+      // console.log(`conflict array in delete task: ${JSON.stringify(conflict, null, 4)}`)
+      // console.log(`index of first item in array: ${index}`)
+      // console.log(`item to be deleted: ${JSON.stringify(fullSchedule[index])}`)
+      const index = fullSchedule.indexOf(conflict[0])
+      let schedule = fullSchedule
+      schedule.splice(index, 1, taskObject)
+      setFullSchedule(schedule)
+      refreshDriverSchedule()
+      setEditModalVisible(false)
+      setCurrentTask()
+    }
   }
 
   useEffect(() => {
