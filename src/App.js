@@ -13,20 +13,26 @@ const App = () => {
   const [fullSchedule, setFullSchedule] = useState([])
   const [createModalVisible, setCreateModalVisible] = useState(false)
   const [editModalVisible, setEditModalVisible] = useState(false)
+  const [errorModalVisible, setErrorModalVisible] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("");
   const [currentTask, setCurrentTask] = useState()
 
   const toggleModalVisibility = (type) => {
     let visibility
     switch (type) {
       case "CREATE":
-        editModalVisible && (setEditModalVisible(false))
+        editModalVisible && setEditModalVisible(false)
         visibility = createModalVisible
         setCreateModalVisible(!visibility)
         break
       case "EDIT":
-        createModalVisible && (setCreateModalVisible(false))
+        createModalVisible && setCreateModalVisible(false)
         visibility = editModalVisible
         setEditModalVisible(!visibility)
+        break
+      case "ERROR":
+        visibility = errorModalVisible
+        setErrorModalVisible(!visibility)
         break
       default:
         break
@@ -35,16 +41,22 @@ const App = () => {
 
   // task management functions in controller (app)
   const createTask = taskObject => {
-    console.log(`value of task object: ${taskObject}`)
+    console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
     const schedule = fullSchedule
-    schedule.push(taskObject)
-    setFullSchedule(schedule)
-    setDriverSchedule(
-      fullSchedule.filter(task => (
-        task.driver_id === currentDriver
-      ))
-    )
-    setCreateModalVisible(false)   
+    if (!taskConflict(taskObject)) {
+      // go ahead and create the object
+      schedule.push(taskObject)
+      setFullSchedule(schedule)
+      setDriverSchedule(
+        fullSchedule.filter(task => (
+          task.driver_id === currentDriver
+        ))
+      )
+      setCreateModalVisible(false)   
+    } else {
+      setErrorModalVisible(true)
+      setErrorMessage("This would conflict with another task. Are you sure you'd like to overwrite this?")
+    }
   }
 
   // will return a boolean result if there is a conflict
@@ -55,8 +67,25 @@ const App = () => {
       item.week === taskObject.week
       && item.day === taskObject.day
       && item.driver_id === taskObject.driver_id
+      && (
+        (
+          parseInt(item.start) >= parseInt(taskObject.start) 
+          && parseInt(item.start) <= parseInt(taskObject.end)
+        ) || (
+          parseInt(item.end) >= parseInt(taskObject.start)
+          && parseInt(item.end) <= parseInt(taskObject.end)
+        )
+      )
     ))
-    return conflict.length > 0
+    console.log(`length of conflict array: ${conflict.length}`)
+    if (conflict.length > 0) {
+      // console.log(`CONFLICT:`)
+      // console.log(`Object found in full schedule: ${JSON.stringify(conflict[0], null, 4)}`)
+      // console.log(`New object being updated or created: ${JSON.stringify(taskObject, null, 4)}`)
+      return true
+    } else {
+      return false
+    }
   }
 
   const updateTask = taskObject => {
@@ -74,7 +103,6 @@ const App = () => {
   }
 
   const deleteTask = () => {
-    console.log('clickin delete!!')
     const index = fullSchedule.indexOf(currentTask)
     let schedule = fullSchedule
     schedule.splice(index, 1)
@@ -90,7 +118,7 @@ const App = () => {
 
   useEffect(() => {
     if (fullSchedule.length === 0) {
-      setFullSchedule(taskList)
+      setFullSchedule(testTasks)
     }
 
     setDriverSchedule(
@@ -116,11 +144,13 @@ const App = () => {
         toggleModal={toggleModalVisibility}
         createModalVisible={createModalVisible}
         editModalVisible={editModalVisible}
+        errorModalVisible={errorModalVisible}
         currentTask={currentTask}
         createTask={createTask}
         updateTask={updateTask}
         updateCurrentTask={setCurrentTask}
-        deleteTask={deleteTask} 
+        deleteTask={deleteTask}
+        errorMessage={errorMessage} 
       />
     </div>
   )
