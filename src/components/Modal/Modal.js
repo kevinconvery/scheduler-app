@@ -9,7 +9,9 @@ const Modal = props => {
     createTask, 
     updateTask, 
     deleteTask, 
-    currentTask 
+    currentTask,
+    errorModalVisible,
+    errorMessage 
   } = props
 
   // state
@@ -23,9 +25,8 @@ const Modal = props => {
   const [driver, setDriver] = useState(1)
   const [editTask, setEditTask] = useState({...currentTask})
 
-  const handleCreateItemSubmit = e => {
-    e.preventDefault()
-    const newTask = {
+  const buildTaskObjectFromState = () => {
+    const taskObject = {
       day: parseInt(taskDay),
       week: parseInt(taskWeek),
       driver_id: parseInt(driver),
@@ -36,7 +37,19 @@ const Modal = props => {
       location: taskLocation
     }
 
-    createTask(newTask)
+    return taskObject
+  }
+
+  const confirmOverwrite = e => {
+    e.preventDefault()
+    toggleModalView("ERROR")
+    toggleModalView("CREATE")
+    updateTask(buildTaskObjectFromState())
+  }
+
+  const handleCreateItemSubmit = e => {
+    e.preventDefault()
+    createTask(buildTaskObjectFromState())
   }
 
   const handleUpdateItemSubmit = e => {
@@ -187,13 +200,34 @@ const Modal = props => {
         >
           Create Task
         </button>
+        <button
+          className="toggle-modal-view-button"
+          onClick={() => toggleModalView("CREATE")}
+        >
+          Toggle View
+        </button>
       </form>
-      <button
-        className="toggle-modal-view-button"
-        onClick={() => toggleModalView("CREATE")}
-      >
-        Toggle View
-      </button>
+      {errorModalVisible && (
+        <div className="error-modal">
+          <div className="error-message">
+            Error: {errorMessage}
+          </div>
+          <div className="button-section">
+            <button 
+              className="confirm-overwrite-button"
+              onClick={e => confirmOverwrite(e)}
+            >
+              Confirm
+            </button>
+            <button 
+              className="toggle-modal-view-button"
+              onClick={() => toggleModalView("ERROR")}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   ) : (
     <div className="Modal">

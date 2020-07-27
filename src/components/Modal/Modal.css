@@ -2,6 +2,7 @@
 
 .Modal {
   display: flex;
+  padding-top: 3rem;
   width: 80%;
   height: 90vh;
   align-items: center;
@@ -31,27 +32,25 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.toggle-modal-view-button {
-  margin-top: 1rem;
-  font-family: 'Roboto', sans-serif;
-  padding: 1rem 2rem;
-  border: none;
-  background: #bebebe
-}
-
 .text-description-field {
   width: 30vw;
   font-family: 'Roboto', sans-serif;
 }
 
-.create-task-button, .update-task-button {
+.create-task-button, 
+.update-task-button, 
+.toggle-modal-view-button,
+.confirm-overwrite-button {
   padding: 1rem;
+  margin: 2rem auto 0;
   border: none;
-  background: #bebebe
-}
-
-.update-task-button {
+  background: #bebebe;
+  width: 50vw;
   display: flex;
   justify-content: center;
-  margin: 2rem auto 0;
 }
+
+.error-modal {
+  margin-top: 4rem;
+}
+
