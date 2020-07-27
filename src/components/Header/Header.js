@@ -1,11 +1,11 @@
 import React from 'react'
 import './Header.css'
+import { drivers } from '../../data'
 
 const Header = props => {
-  const { week, updateDriver, updateWeek, updateScheduleInterval } = props
+  const { week, updateDriver, currentDriver, updateWeek, updateScheduleInterval } = props
   const handleChangeDriver = e => {
     updateDriver(parseInt(e.target.value))
-    console.log(`${[e.target.name]}: ${e.target.value}`)
   }
 
   const handleChangeInterval = e => {
@@ -27,11 +27,11 @@ const Header = props => {
           name="driver-dropdown" 
           className="dropdown-menu driver-dropdown"
           onChange={handleChangeDriver}
+          value={currentDriver}
         >
-          <option value={0} key={0}>-- Select a driver --</option>
-          <option value={1} key={1}>George</option>
-          <option value={2} key={2}>Shane</option>
-          <option value={3} key={3}>Tania</option>
+          {drivers.map(driver => (
+            <option value={drivers.indexOf(driver) + 1} key={`driver-${drivers.indexOf(driver) + 1}`}>{driver}</option>
+          ))}
         </select>
       </div>
       <div className="week-select-section">

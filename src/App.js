@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import Header from './components/Header/Header'
 import Schedule from './components/Schedule/Schedule'
-import { taskList } from './data'
+// dummy data
+import { taskList, testTasks } from './data'
 import './App.css'
 
 const App = () => {
   const [currentWeek, setCurrentWeek] = useState(1)
-  const [currentDriver, setCurrentDriver] = useState(0)
+  const [currentDriver, setCurrentDriver] = useState(1)
   const [scheduleInterval, setScheduleInterval] = useState(0)
   const [driverSchedule, setDriverSchedule] = useState([])
   const [fullSchedule, setFullSchedule] = useState([])
   const [createModalVisible, setCreateModalVisible] = useState(false)
   const [editModalVisible, setEditModalVisible] = useState(false)
+  const [currentTask, setCurrentTask] = useState()
 
-  const toggleModalVisibility = type => {
+  const toggleModalVisibility = (type) => {
     let visibility
     switch (type) {
       case "CREATE":
         editModalVisible && (setEditModalVisible(false))
         visibility = createModalVisible
-        console.log("create modal toggle fired")
         setCreateModalVisible(!visibility)
         break
       case "EDIT":
@@ -34,14 +35,45 @@ const App = () => {
 
   // task management functions in controller (app)
   const createTask = taskObject => {
-    console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
+    console.log(`value of task object: ${taskObject}`)
     const schedule = fullSchedule
     schedule.push(taskObject)
     setFullSchedule(schedule)
+    setDriverSchedule(
+      fullSchedule.filter(task => (
+        task.driver_id === currentDriver
+      ))
+    )
+    setCreateModalVisible(false)   
   }
 
-  const updateTask = task_id => {
+  // will return a boolean result if there is a conflict
+  // a conflict is defined as same driver, day, week and:
+  // todo
+  const taskConflict = taskObject => {
+    const conflict = fullSchedule.filter((item) => (
+      item.week === taskObject.week
+      && item.day === taskObject.day
+      && item.driver_id === taskObject.driver_id
+    ))
+    return conflict.length > 0
+  }
 
+  const updateTask = taskObject => {
+    console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
+    console.log(`index of current task in full schedule: ${fullSchedule.indexOf(currentTask)}`)
+    console.log(`fullSchedule.length - ${fullSchedule.length}`)
+    const index = fullSchedule.indexOf(currentTask)
+    let schedule = fullSchedule
+    schedule.splice(index, 1, taskObject)
+    console.log(`value of schedule: ${JSON.stringify(schedule, null, 4)}`)
+    setFullSchedule(schedule)
+    setDriverSchedule(
+      fullSchedule.filter(task => (
+        task.driver_id === currentDriver
+      ))
+    )
+    setEditModalVisible(false)
   }
 
   const deleteTask = task_id => {
@@ -66,7 +98,8 @@ const App = () => {
         week={currentWeek}
         updateWeek={setCurrentWeek}
         updateDriver={setCurrentDriver}
-        updateScheduleInterval={setScheduleInterval} 
+        updateScheduleInterval={setScheduleInterval}
+        currentDriver={currentDriver} 
       />
 
       <Schedule 
@@ -75,8 +108,10 @@ const App = () => {
         toggleModal={toggleModalVisibility}
         createModalVisible={createModalVisible}
         editModalVisible={editModalVisible}
+        currentTask={currentTask}
         createTask={createTask}
         updateTask={updateTask}
+        updateCurrentTask={setCurrentTask}
         deleteTask={deleteTask} 
       />
     </div>

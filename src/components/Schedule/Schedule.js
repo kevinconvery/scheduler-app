@@ -13,31 +13,41 @@ const Schedule = props => {
     editModalVisible,
     createTask,
     updateTask,
+    currentTask,
+    updateCurrentTask,
     deleteTask
   } = props
 
   const taskInSchedule = (week, day, hour) => {
-    const testArray = driverSchedule.filter(task => (
+    const taskArray = driverSchedule.filter(task => (
       task.week === week 
       && task.day === day 
       && (task.start === hour)
     ))
 
-    const between = driverSchedule.filter(task => (
-      task.week === week && task.day === day && (task.start < hour && task.end > hour)
-    ))
+    const inSchedule = taskArray.length > 0
 
-    if (between.length > 0) return
+    const inBetween = driverSchedule.filter(task => (
+      task.week === week 
+      && task.day === day 
+      && (task.start < hour && task.end > hour)
+    )).length > 0
 
-    if (testArray.length > 0) {
-      const { start, end, type } = testArray[0]
+    // we want this omitted from the grid, anything between in the grid for the task
+    if (inBetween) return
+
+    if (inSchedule) {
+      const { start, end, type } = taskArray[0]
+      const taskID = driverSchedule.indexOf(taskArray[0])
       return (
-        <Task 
+        <Task
+          taskID={taskID}
+          key={`task-${taskID}`}
           start={start} 
           end={end} 
           type={type}
           length={end - start}
-          toggleEdit={() => toggleModal("EDIT")}
+          editTask={findTaskAndEdit}
         />
       )  
     } else {
@@ -52,11 +62,22 @@ const Schedule = props => {
     }
   }
 
+  const findTaskAndEdit = id => {
+    // find the task in the schedule:
+    const task = driverSchedule[id]
+    updateCurrentTask(task)
+    console.log(`task being worked on: ${JSON.stringify(task, null, 4)}`)
+    toggleModal("EDIT")
+  }
+
   return createModalVisible || editModalVisible ? (
     <Modal 
-      modalType="CREATE"
+      modalType={createModalVisible ? "CREATE" : "EDIT"}
       toggleModalView={toggleModal}
-      createTask={createTask} 
+      createTask={createTask}
+      currentTask={currentTask}
+      updateTask={updateTask}
+      deleteTask={deleteTask} 
     />
   ) : (
     <div className="Schedule">

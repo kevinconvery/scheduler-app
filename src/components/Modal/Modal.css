@@ -32,7 +32,7 @@
 }
 
 .toggle-modal-view-button {
-  margin-top: 3rem;
+  margin-top: 1rem;
   font-family: 'Roboto', sans-serif;
   padding: 1rem 2rem;
   border: none;
@@ -44,9 +44,14 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.create-task-button {
-  margin-top: 1rem;
+.create-task-button, .update-task-button {
   padding: 1rem;
   border: none;
   background: #bebebe
+}
+
+.update-task-button {
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto 0;
 }

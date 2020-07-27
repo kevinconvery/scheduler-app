@@ -2,7 +2,7 @@ import React from 'react'
 import './Task.css'
 
 const Task = props => {
-  const { start, end, type, length, taskID } = props
+  const { type, length, taskID, editTask } = props
 
   return (
     <div 
@@ -10,7 +10,8 @@ const Task = props => {
       style={{
         height: `${50 * parseInt(length)}px`
       }}
-      onClick={() => console.log(`task of ${end - start} length clicked`)}
+      onClick={() => editTask(taskID)}
+      name={`task-${taskID}`}
     >
       {type.toUpperCase()}
     </div>
