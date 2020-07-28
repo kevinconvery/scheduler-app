@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react'
 import Header from './components/Header/Header'
 import Schedule from './components/Schedule/Schedule'
 // dummy data
-import { taskList, testTasks } from './data'
+import { taskList } from './data'
 import './App.css'
 
 const App = () => {
   const [currentWeek, setCurrentWeek] = useState(1)
   const [currentDriver, setCurrentDriver] = useState(1)
-  const [scheduleInterval, setScheduleInterval] = useState(0)
+  const [scheduleInterval, setScheduleInterval] = useState(2)
   const [driverSchedule, setDriverSchedule] = useState([])
   const [fullSchedule, setFullSchedule] = useState([])
   const [createModalVisible, setCreateModalVisible] = useState(false)
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [errorModalVisible, setErrorModalVisible] = useState(false)
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("")
   const [currentTask, setCurrentTask] = useState()
 
   const refreshDriverSchedule = () => {
@@ -158,7 +158,7 @@ const App = () => {
 
   useEffect(() => {
     if (fullSchedule.length === 0) {
-      setFullSchedule(testTasks)
+      setFullSchedule(taskList)
     }
 
     setDriverSchedule(
@@ -172,6 +172,8 @@ const App = () => {
     <div className="App">
       <Header 
         week={currentWeek}
+        scheduleInterval={scheduleInterval}
+        driverSchedule={driverSchedule}
         updateWeek={setCurrentWeek}
         updateDriver={setCurrentDriver}
         updateScheduleInterval={setScheduleInterval}
