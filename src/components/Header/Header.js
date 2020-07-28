@@ -139,6 +139,7 @@ const Header = props => {
         <CSVLink
           data={dataSet}
           headers={csvHeaders}
+          filename={`schedule.csv`}
         >
           Download Schedule
         </CSVLink>
