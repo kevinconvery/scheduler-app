@@ -41,7 +41,7 @@ const App = () => {
         break
       case `INVALID_TIME`:
         setErrorMessage(
-          `You cannot book an appointment with a start time after the end time.`
+          `You cannot book or update an appointment with a start time after the end time.`
         )
         break
       default:
@@ -110,27 +110,13 @@ const App = () => {
     const conflict = getConflictArray(taskObject)
     // if it exists in the update case and is the current task, return false
     if (conflictType === "Update") {
-      if (conflict.length === 1) {
-        return false
-      } else {
-        console.log('fired here')
-        console.log(`conflict array: ${JSON.stringify(conflict, null, 4)}`)
-        return true
-      }
+      return conflict.length === 1 ? false : true
     }
 
-    if (conflict.length > 0) {
-      console.log(`CONFLICT:`)
-      console.log(`Object found in full schedule: ${JSON.stringify(conflict[0], null, 4)}`)
-      console.log(`New object being updated or created: ${JSON.stringify(taskObject, null, 4)}`)
-      return true
-    } else {
-      return false
-    }
+    return conflict.length > 0 ? true : false
   }
 
   const updateTask = (taskObject, overwrite = false) => {
-    console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
     // we want to compare with the current task item removed since we know there's a conflict there
     if (!taskConflict(taskObject, "Update") || overwrite) {
       // assign again here, since we want to replace the item in the full schedule
@@ -139,7 +125,6 @@ const App = () => {
       schedule.splice(index, 1, taskObject)
       setFullSchedule(schedule)
       refreshDriverSchedule()
-      console.log(`length of full schedule: ${fullSchedule.length}`)
       setEditModalVisible(false)
       setCurrentTask()
     } else {
