@@ -20,7 +20,7 @@ const EditModal = props => {
     e.preventDefault()
     toggleModalView("ERROR")
     toggleModalView("EDIT")
-    overwriteTask(editTask)
+    overwriteTask(editTask, true)
   }
 
   const handleUpdateItemSubmit = e => {
