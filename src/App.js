@@ -74,7 +74,7 @@ const App = () => {
   // task management functions in controller (app)
   const createTask = taskObject => {
     console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
-    if (!taskConflict(taskObject, "Create")) {
+    if (!taskConflict(taskObject)) {
       const schedule = fullSchedule
       // go ahead and create the object
       schedule.push(taskObject)
@@ -114,23 +114,17 @@ const App = () => {
     ))
   }
 
-  const taskConflict = (taskObject, conflictType) => {
-    const conflict = getConflictArray(taskObject)
-    // if it exists in the update case and is the current task, return false
-    if (conflictType === "Update") {
-      console.log(`Conflict length: ${conflict.length}`)
-      console.log(`Conflict type: ${conflictType}`)
-      console.log(`Conflict array: ${JSON.stringify(conflict, null, 4)}`)
-      return conflict.length < 2 ? false : true
-    }
-    console.log(`Conflict type: ${conflictType}`)
+  const taskConflict = taskObject => {
+    let conflict = getConflictArray(taskObject)
+    conflict = conflict.filter(item => item !== currentTask)
     console.log(`Conflict array: ${JSON.stringify(conflict, null, 4)}`)
+    console.log(`Conflict length: ${conflict.length}`)
     return conflict.length > 0 ? true : false
   }
 
   const updateTask = (taskObject, overwrite = false) => {
     // we want to compare with the current task item removed since we know there's a conflict there
-    if (!taskConflict(taskObject, "Update") || overwrite) {
+    if (!taskConflict(taskObject) || overwrite) {
       // assign again here, since we want to replace the item in the full schedule
       const index = fullSchedule.indexOf(currentTask)
       let schedule = fullSchedule
