@@ -95,6 +95,8 @@ const App = () => {
       scheduleItem.week === taskObject.week
       && scheduleItem.day === taskObject.day
       && scheduleItem.driver_id === taskObject.driver_id
+      && scheduleItem.start !== taskObject.end
+      && scheduleItem.end !== taskObject.start
       && (
         (
           // return true if either start or end are equal on both
