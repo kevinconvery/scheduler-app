@@ -99,8 +99,7 @@ const Header = props => {
         }))
         dataArray = dataArray.slice(scheduleInterval)
       }
-
-      console.log(updatedDataSet[0])  
+ 
       setDataSet(updatedDataSet)
     }
 
@@ -120,7 +119,12 @@ const Header = props => {
           value={currentDriver}
         >
           {drivers.map(driver => (
-            <option value={drivers.indexOf(driver) + 1} key={`driver-${drivers.indexOf(driver) + 1}`}>{driver}</option>
+            <option 
+              value={drivers.indexOf(driver) + 1} 
+              key={`driver-${drivers.indexOf(driver) + 1}`}
+            >
+              {driver}
+            </option>
           ))}
         </select>
       </div>
@@ -136,21 +140,23 @@ const Header = props => {
         />}
       </div>
       <div className="download-schedule-section">
-        <label htmlFor="download-dropdown">
-          Driver Schedule
-        </label>
-        <select 
-          name="download-dropdown" 
-          className="dropdown-menu download-dropdown"
-          onChange={handleChangeInterval}
-          value={scheduleInterval}
-        >
-          <option value={2} key={2}>2 days</option>
-          <option value={4} key={4}>4 days</option>
-          <option value={7} key={7}>7 days</option>
-          <option value={14} key={14}>14 days</option>
-          <option value={28} key={28}>28 days</option>
-        </select>
+        <div className="download-dropdown-section">
+          <label htmlFor="download-dropdown">
+            Driver Schedule
+          </label>
+          <select 
+            name="download-dropdown" 
+            className="dropdown-menu download-dropdown"
+            onChange={handleChangeInterval}
+            value={scheduleInterval}
+          >
+            <option value={2} key={2}>2 days</option>
+            <option value={4} key={4}>4 days</option>
+            <option value={7} key={7}>7 days</option>
+            <option value={14} key={14}>14 days</option>
+            <option value={28} key={28}>28 days</option>
+          </select>
+        </div>
         <CSVLink
           data={dataSet}
           headers={csvHeaders}
@@ -158,7 +164,7 @@ const Header = props => {
           className="download-schedule-link"
         >
           Download Schedule
-      </CSVLink>
+        </CSVLink>
       </div>
     </div>
   )
