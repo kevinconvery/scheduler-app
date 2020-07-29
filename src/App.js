@@ -207,6 +207,7 @@ const App = () => {
         createModalVisible={createModalVisible}
         editModalVisible={editModalVisible}
         errorModalVisible={errorModalVisible}
+        currentDriver={currentDriver}
         currentTask={currentTask}
         createTask={createTask}
         updateTask={updateTask}
