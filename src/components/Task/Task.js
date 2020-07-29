@@ -18,7 +18,6 @@ const Task = props => {
   ) : (
     <div 
       className={`cell-w${week}-d${day}-h${hour} grid-cell`} 
-      key={`W${week}D${day}H${hour}`}
       onClick={() => createTask({week: week, day: day, hour: hour})}
     >
     </div>

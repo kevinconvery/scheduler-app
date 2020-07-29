@@ -60,6 +60,7 @@ const Schedule = props => {
       return (
         <Task 
           empty
+          key={`W${week}D${day}H${hour}`}
           position={position}
           createTask={createTaskWithPosition}
         />
