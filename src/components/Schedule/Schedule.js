@@ -19,7 +19,8 @@ const Schedule = props => {
     currentTask,
     updateCurrentTask,
     deleteTask,
-    overwriteTask
+    overwriteTask,
+    currentDriver
   } = props
 
   const taskInSchedule = (week, day, hour) => {
@@ -55,15 +56,33 @@ const Schedule = props => {
         />
       )  
     } else {
+      const position = {day: day, week: week, hour: hour}
       return (
-        <div 
-          className={`cell-w${week}-d${day}-h${hour} grid-cell`} 
-          key={`W${week}D${day}H${hour}`}
-          onClick={() => toggleModal("CREATE")}
-        >
-        </div>
+        <Task 
+          empty
+          position={position}
+          createTask={createTaskWithPosition}
+        />
       )
     }
+  }
+
+  const createTaskWithPosition = position => {
+    const { day, week, hour } = position
+    console.log(`Position of task: ${JSON.stringify(position, null, 4)}`)
+    const task = {
+      driver_id: currentDriver,
+      day: parseInt(day),
+      week: parseInt(week),
+      start: parseInt(hour),
+      end: parseInt(hour),
+      type: 'Pickup',
+      location: '',
+      description: '',
+    }
+    console.log(`value of task being created: ${JSON.stringify(task, null, 4)}`)
+    updateCurrentTask(task)
+    toggleModal("CREATE")
   }
 
   const findTaskAndEdit = id => {
@@ -81,9 +100,7 @@ const Schedule = props => {
         errorModalVisible={errorModalVisible}
         errorMessage={errorMessage}
         overwriteTask={overwriteTask}
-        initialWeek={1}
-        initialDay={0}
-        initialStartHour={0} 
+        currentTask={currentTask}
       />
     :     
       <EditModal 
