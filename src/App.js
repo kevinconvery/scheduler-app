@@ -149,22 +149,15 @@ const App = () => {
   }
 
   const overwriteTask = (taskObject, edit=false) => {
-    // console.log(`value of taskObject: ${JSON.stringify(taskObject, null, 4)}`)
     const conflict = getConflictArray(taskObject)
-    // console.log(`Conflicting item with the task object: ${JSON.stringify(conflict[0], null, 4)}`)
     const index = fullSchedule.indexOf(conflict[0])
-    // console.log(`value of index in full schedule: ${index}`)
-    // console.log(`conflict array in delete task: ${JSON.stringify(conflict, null, 4)}`)
-    // console.log(`index of first item in array: ${index}`)
-    // console.log(`item to be deleted: ${JSON.stringify(fullSchedule[index])}`)
-    // console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
-    // console.log(`index of task object: ${taskObjectIndex}`)
     let schedule = fullSchedule
     schedule.splice(index, 1, taskObject)
-    // console.log(`value of current task: ${JSON.stringify(currentTask)}`)
+    console.log(`value of current task: ${JSON.stringify(currentTask)}`)
     const taskObjectIndex = fullSchedule.indexOf(currentTask || conflict[0])
-    // console.log(`Value of task object index: ${taskObjectIndex}`)
+    console.log(`Value of task object index: ${taskObjectIndex}`)
     schedule.splice(taskObjectIndex, 1)
+    // if it's being edited no need to push the additional object
     edit || schedule.push(taskObject)
     setFullSchedule(schedule)
     refreshDriverSchedule()
@@ -174,7 +167,7 @@ const App = () => {
 
   useEffect(() => {
     if (fullSchedule.length === 0) {
-      setFullSchedule(testTasks)
+      setFullSchedule(taskList)
     }
 
     setDriverSchedule(
