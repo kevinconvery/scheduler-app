@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Header from './components/Header/Header'
 import Schedule from './components/Schedule/Schedule'
 // dummy data
-import { taskList } from './data'
+import { taskList, testTasks } from './data'
 import './App.css'
 
 const App = () => {
@@ -87,20 +87,26 @@ const App = () => {
   }
 
   const getConflictArray = taskObject => {
-    return fullSchedule.filter((item) => (
+    console.log(`Value of task object in getConflictArray: ${JSON.stringify(taskObject, null, 4)}`)
+    return fullSchedule.filter((scheduleItem) => (
       // matching week, day, driver_id then checking 
       // if either the start or end times are between an 
       // existing time in the schedule
-      item.week === taskObject.week
-      && item.day === taskObject.day
-      && item.driver_id === taskObject.driver_id
+      scheduleItem.week === taskObject.week
+      && scheduleItem.day === taskObject.day
+      && scheduleItem.driver_id === taskObject.driver_id
       && (
         (
-          parseInt(item.start) >= parseInt(taskObject.start) 
-          && parseInt(item.start) <= parseInt(taskObject.end)
-        ) || (
-          parseInt(item.end) >= parseInt(taskObject.start)
-          && parseInt(item.end) <= parseInt(taskObject.end)
+          // return true if either start or end are equal on both
+          parseInt(scheduleItem.start) === parseInt(taskObject.start)
+        ) || 
+        ( 
+          parseInt(scheduleItem.end) === parseInt(taskObject.end)
+        ) ||
+        (
+          // return true if the start is between
+          parseInt(scheduleItem.start) < parseInt(taskObject.end)
+          && parseInt(scheduleItem.end) > parseInt(taskObject.start)
         )
       )
     ))
@@ -110,9 +116,13 @@ const App = () => {
     const conflict = getConflictArray(taskObject)
     // if it exists in the update case and is the current task, return false
     if (conflictType === "Update") {
-      return conflict.length === 1 ? false : true
+      console.log(`Conflict length: ${conflict.length}`)
+      console.log(`Conflict type: ${conflictType}`)
+      console.log(`Conflict array: ${JSON.stringify(conflict, null, 4)}`)
+      return conflict.length < 2 ? false : true
     }
-
+    console.log(`Conflict type: ${conflictType}`)
+    console.log(`Conflict array: ${JSON.stringify(conflict, null, 4)}`)
     return conflict.length > 0 ? true : false
   }
 
@@ -142,13 +152,20 @@ const App = () => {
       setEditModalVisible(false)
       setCurrentTask()    
     } else {
-      const conflict = getConflictArray(taskObject)
-      // console.log(`conflict array in delete task: ${JSON.stringify(conflict, null, 4)}`)
-      // console.log(`index of first item in array: ${index}`)
-      // console.log(`item to be deleted: ${JSON.stringify(fullSchedule[index])}`)
+      // overwrite path
+      const conflict = getConflictArray(taskObject).filter(item => item !== taskObject)
+      console.log(`Conflicting item with the task object: ${JSON.stringify(conflict[0])}`)
       const index = fullSchedule.indexOf(conflict[0])
+      console.log(`conflict array in delete task: ${JSON.stringify(conflict, null, 4)}`)
+      console.log(`index of first item in array: ${index}`)
+      console.log(`item to be deleted: ${JSON.stringify(fullSchedule[index])}`)
+      console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
+      // console.log(`index of task object: ${taskObjectIndex}`)
       let schedule = fullSchedule
-      schedule.splice(index, 1, taskObject)
+      schedule.splice(index, 1)
+      const taskObjectIndex = fullSchedule.indexOf(currentTask)
+      schedule.splice(taskObjectIndex, 1)
+      schedule.push(taskObject)
       setFullSchedule(schedule)
       refreshDriverSchedule()
       setEditModalVisible(false)
