@@ -9,46 +9,22 @@ const CreateModal = props => {
     errorModalVisible,
     errorMessage,
     overwriteTask,
-    initialWeek,
-    initialDay,
-    initialYear
+    currentTask
   } = props
 
   // state
-  const [taskWeek, setTaskWeek] = useState(1)
-  const [taskDay, setTaskDay] = useState(0)
-  const [startTime, setStartTime] = useState(0)
-  const [endTime, setEndTime] = useState(1)
-  const [taskType, setTaskType] = useState("Pickup")
-  const [taskDescription, setTaskDescription] = useState("")
-  const [taskLocation, setTaskLocation] = useState("")
-  const [driver, setDriver] = useState(1)
-
-  const buildTaskObjectFromState = () => {
-    const taskObject = {
-      day: parseInt(taskDay),
-      week: parseInt(taskWeek),
-      driver_id: parseInt(driver),
-      start: parseInt(startTime),
-      end: parseInt(endTime),
-      type: taskType,
-      description: taskDescription,
-      location: taskLocation
-    }
-
-    return taskObject
-  }
+  const [creationTask, setCreationTask] = useState({...currentTask})
 
   const confirmCreateOverwrite = e => {
     e.preventDefault()
     toggleModalView("ERROR")
     toggleModalView("CREATE")
-    overwriteTask(buildTaskObjectFromState())
+    overwriteTask(creationTask)
   }
 
   const handleCreateItemSubmit = e => {
     e.preventDefault()
-    createTask(buildTaskObjectFromState())
+    createTask(creationTask)
   }
 
   return ( 
@@ -62,8 +38,8 @@ const CreateModal = props => {
           <label htmlFor="driver">Driver:</label>
           <select 
             name="driver"
-            onChange={e => setDriver(e.target.value)}
-            value={driver}
+            value={creationTask.driver_id}
+            onChange={e => setCreationTask({...creationTask, driver_id: parseInt(e.target.value)})}
           >
             <option value="">-- Select a driver --</option>
             {drivers.map(driver => (
@@ -75,8 +51,8 @@ const CreateModal = props => {
         <label htmlFor="week">Week of task:</label>
           <select 
             name="week"
-            onChange={e => setTaskWeek(e.target.value)}
-            value={taskWeek}
+            value={creationTask.week}
+            onChange={e => setCreationTask({...creationTask, week: parseInt(e.target.value)})}
           >
             {Array(52)
               .fill()
@@ -94,8 +70,8 @@ const CreateModal = props => {
           <label htmlFor="task-day">Day of task:</label>
           <select 
             name="task-day"
-            value={taskDay}
-            onChange={e => setTaskDay(e.target.value)}
+            value={creationTask.day}
+            onChange={e => setCreationTask({...creationTask, day: parseInt(e.target.value)})}
           >
             {weekdays.map(weekday => (
               <option value={weekdays.indexOf(weekday)} key={weekday}>{weekday}</option>
@@ -107,8 +83,8 @@ const CreateModal = props => {
           <label htmlFor="start-time">Start Time:</label>
           <select 
             name="start-time"
-            onChange={e => setStartTime(e.target.value)}
-            value={startTime}  
+            value={creationTask.start}  
+            onChange={e => setCreationTask({...creationTask, start: parseInt(e.target.value)})}
           >
             {scheduleTimes
               .map(time => (
@@ -127,11 +103,10 @@ const CreateModal = props => {
           <label htmlFor="end-time">End Time:</label>
           <select 
             name="end-time"
-            onChange={e => setEndTime(e.target.value)}
-            value={endTime}
+            onChange={e => setCreationTask({...creationTask, end: parseInt(e.target.value)})}
+            value={creationTask.end}
           >
             {scheduleTimes
-              .slice(parseInt(startTime) + 1, scheduleTimes.length)
               .map(time => (
                 <option
                   key={`end-time-${time}`}
@@ -148,8 +123,8 @@ const CreateModal = props => {
           <label htmlFor="task-type">What type of task is this?</label>
           <select 
             name="task-type"
-            onChange={e => setTaskType(e.target.value)}
-            value={taskType}
+            onChange={e => setCreationTask({...creationTask, type: e.target.value })}
+            value={creationTask.type}
           >
             {taskTypes.map(type => (
               <option 
@@ -169,8 +144,8 @@ const CreateModal = props => {
           <input 
             type="text"
             className="text-description-field"
-            value={taskDescription}
-            onChange={e => setTaskDescription(e.target.value)}
+            value={creationTask.description}
+            onChange={e => setCreationTask({...creationTask, description: e.target.value })}
           />
         </div>
         <div className="form-field">
@@ -180,8 +155,8 @@ const CreateModal = props => {
           <input
             type="text"
             className="text-location-field"
-            value={taskLocation}
-            onChange={e => setTaskLocation(e.target.value)}
+            value={creationTask.location}
+            onChange={e => setCreationTask({...creationTask, location: e.target.value })}
           />
         </div>
         <button 
