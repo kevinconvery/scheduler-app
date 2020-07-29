@@ -103,7 +103,7 @@ export const taskList = [
 
 export const testTasks = [
   {
-    day: 1,
+    day: 0,
     week: 1,
     start: 0,
     end: 2,

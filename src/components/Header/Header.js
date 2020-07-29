@@ -92,7 +92,7 @@ const Header = props => {
           acc.others += curr.others
           return acc
         }, {
-          sideLabel: `Day ${starting}-Day ${ending}`,
+          sideLabel: `Day ${starting} - Day ${ending}`,
           pickups: 0,
           dropoffs: 0,
           others: 0
