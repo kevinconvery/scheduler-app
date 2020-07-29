@@ -40,3 +40,7 @@ label {
   background: url('/images/right-arrow.png') no-repeat;
   background-size: 100%;
 }
+
+.download-schedule-link {
+  text-decoration: none;
+}

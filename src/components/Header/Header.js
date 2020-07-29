@@ -18,7 +18,7 @@ const Header = props => {
 
   const csvHeaders = [ 
     {
-      label: '', key: 'sideLabel'
+      label: 'Timeframe', key: 'timeframe'
     },
     {
       label: 'Pickups', key: 'pickups'
@@ -92,7 +92,7 @@ const Header = props => {
           acc.others += curr.others
           return acc
         }, {
-          sideLabel: `Day ${starting} - Day ${ending}`,
+          timeframe: `Day ${starting} - Day ${ending}`,
           pickups: 0,
           dropoffs: 0,
           others: 0
@@ -136,13 +136,9 @@ const Header = props => {
         />}
       </div>
       <div className="download-schedule-section">
-        <CSVLink
-          data={dataSet}
-          headers={csvHeaders}
-          filename={`schedule.csv`}
-        >
-          Download Schedule
-        </CSVLink>
+        <label htmlFor="download-dropdown">
+          Driver Schedule
+        </label>
         <select 
           name="download-dropdown" 
           className="dropdown-menu download-dropdown"
@@ -155,6 +151,14 @@ const Header = props => {
           <option value={14} key={14}>14 days</option>
           <option value={28} key={28}>28 days</option>
         </select>
+        <CSVLink
+          data={dataSet}
+          headers={csvHeaders}
+          filename={`driver-schedule.csv`}
+          className="download-schedule-link"
+        >
+          Download Schedule
+      </CSVLink>
       </div>
     </div>
   )

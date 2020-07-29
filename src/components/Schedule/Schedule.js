@@ -69,7 +69,6 @@ const Schedule = props => {
     // find the task in the schedule:
     const task = driverSchedule[id]
     updateCurrentTask(task)
-    console.log(`task being worked on: ${JSON.stringify(task, null, 4)}`)
     toggleModal("EDIT")
   }
 
