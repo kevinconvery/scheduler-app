@@ -107,6 +107,7 @@ const CreateModal = props => {
             value={creationTask.end}
           >
             {scheduleTimes
+              .slice(creationTask.start + 1)
               .map(time => (
                 <option
                   key={`end-time-${time}`}
@@ -159,18 +160,22 @@ const CreateModal = props => {
             onChange={e => setCreationTask({...creationTask, location: e.target.value })}
           />
         </div>
-        <button 
-          type="submit"
-          className="modal-btn create-task-button"
-        >
-          Create Task
-        </button>
-        <button
-          className="modal-btn toggle-modal-view-button"
-          onClick={() => toggleModalView("CREATE")}
-        >
-          Toggle View
-        </button>
+        {errorModalVisible || (
+          <div className="modal-button-section">
+            <button 
+              type="submit"
+              className="modal-btn create-task-button"
+            >
+              Create Task
+            </button>
+            <button
+              className="modal-btn toggle-modal-view-button"
+              onClick={() => toggleModalView("CREATE")}
+            >
+              Toggle View
+            </button>
+          </div>
+        )}
       </form>
       {errorModalVisible && (
         <div className="error-modal">

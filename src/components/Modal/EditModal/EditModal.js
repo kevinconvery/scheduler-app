@@ -165,17 +165,21 @@ const EditModal = props => {
             onChange={e => setEditTask({...editTask, location: e.target.value})}
           />
         </div>
-        <button 
-          type="submit"
-          className="modal-btn update-task-button"
-        >
-          Update Task
-        </button>
-        <button
-          className="modal-btn delete-task-button"
-          onClick={e => handleDeleteTask(e)}>
-          Delete Task
-        </button>
+        {errorModalVisible || (
+          <div className="modal-button-section">
+            <button 
+              type="submit"
+              className="modal-btn update-task-button"
+            >
+              Update Task
+            </button>
+            <button
+              className="modal-btn delete-task-button"
+              onClick={e => handleDeleteTask(e)}>
+              Delete Task
+            </button>
+          </div>
+        )}
       </form>
       {errorModalVisible && (
         <div className="error-modal">
