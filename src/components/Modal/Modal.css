@@ -37,10 +37,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.create-task-button, 
-.update-task-button, 
-.toggle-modal-view-button,
-.confirm-overwrite-button {
+.modal-btn {
   padding: 1rem;
   margin: 2rem auto 0;
   border: none;
