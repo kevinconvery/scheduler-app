@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.CreateModal {
+  display: flex;
+  padding-top: 3rem;
+  width: 80%;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.create-item-form {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+}
+
+.form-field {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.form-field label {
+  align-self: center;
+}
+
+.form-field select {
+  padding: 5px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.text-description-field {
+  width: 30vw;
+  font-family: 'Roboto', sans-serif;
+}
+
+.modal-btn {
+  padding: 1rem;
+  margin: 2rem auto 0;
+  border: none;
+  background: #bebebe;
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+}
+
+.error-modal {
+  margin-top: 4rem;
+}
