@@ -11,7 +11,8 @@ const Modal = props => {
     deleteTask, 
     currentTask,
     errorModalVisible,
-    errorMessage 
+    errorMessage,
+    overwriteTask
   } = props
 
   // state
@@ -44,14 +45,14 @@ const Modal = props => {
     e.preventDefault()
     toggleModalView("ERROR")
     toggleModalView("CREATE")
-    updateTask(buildTaskObjectFromState(), true)
+    overwriteTask(buildTaskObjectFromState())
   }
 
   const confirmUpdateOverwrite = e => {
     e.preventDefault()
     toggleModalView("ERROR")
     toggleModalView("EDIT")
-    deleteTask(editTask)
+    overwriteTask(editTask)
   }
 
   const handleCreateItemSubmit = e => {

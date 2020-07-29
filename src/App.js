@@ -144,40 +144,41 @@ const App = () => {
     }
   }
 
-  const deleteTask = (taskObject = null) => {
-    if (!taskObject) {
-      const index = fullSchedule.indexOf(currentTask)
-      let schedule = fullSchedule
-      schedule.splice(index, 1)
-      setFullSchedule(schedule)
-      refreshDriverSchedule()
-      setEditModalVisible(false)
-      setCurrentTask()    
-    } else {
-      // overwrite path
-      const conflict = getConflictArray(taskObject).filter(item => item !== taskObject)
-      console.log(`Conflicting item with the task object: ${JSON.stringify(conflict[0])}`)
-      const index = fullSchedule.indexOf(conflict[0])
-      console.log(`conflict array in delete task: ${JSON.stringify(conflict, null, 4)}`)
-      console.log(`index of first item in array: ${index}`)
-      console.log(`item to be deleted: ${JSON.stringify(fullSchedule[index])}`)
-      console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
-      // console.log(`index of task object: ${taskObjectIndex}`)
-      let schedule = fullSchedule
-      schedule.splice(index, 1)
-      const taskObjectIndex = fullSchedule.indexOf(currentTask)
-      schedule.splice(taskObjectIndex, 1)
-      schedule.push(taskObject)
-      setFullSchedule(schedule)
-      refreshDriverSchedule()
-      setEditModalVisible(false)
-      setCurrentTask()
-    }
+  const deleteTask = () => {
+    const index = fullSchedule.indexOf(currentTask)
+    let schedule = fullSchedule
+    schedule.splice(index, 1)
+    setFullSchedule(schedule)
+    refreshDriverSchedule()
+    setEditModalVisible(false)
+    setCurrentTask()
+  }
+
+  const overwriteTask = taskObject => {
+    const conflict = getConflictArray(taskObject).filter(item => item !== taskObject)
+    console.log(`Conflicting item with the task object: ${JSON.stringify(conflict[0])}`)
+    const index = fullSchedule.indexOf(conflict[0])
+    console.log(`conflict array in delete task: ${JSON.stringify(conflict, null, 4)}`)
+    console.log(`index of first item in array: ${index}`)
+    console.log(`item to be deleted: ${JSON.stringify(fullSchedule[index])}`)
+    console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
+    // console.log(`index of task object: ${taskObjectIndex}`)
+    let schedule = fullSchedule
+    schedule.splice(index, 1, taskObject)
+    console.log(`value of current task: ${JSON.stringify(currentTask)}`)
+    const taskObjectIndex = fullSchedule.indexOf(currentTask || conflict[0])
+    console.log(`Value of task object index: ${taskObjectIndex}`)
+    schedule.splice(taskObjectIndex, 1)
+    currentTask || schedule.push(taskObject)
+    setFullSchedule(schedule)
+    refreshDriverSchedule()
+    setEditModalVisible(false)
+    setCurrentTask()    
   }
 
   useEffect(() => {
     if (fullSchedule.length === 0) {
-      setFullSchedule(taskList)
+      setFullSchedule(testTasks)
     }
 
     setDriverSchedule(
@@ -211,6 +212,7 @@ const App = () => {
         updateTask={updateTask}
         updateCurrentTask={setCurrentTask}
         deleteTask={deleteTask}
+        overwriteTask={overwriteTask}
         errorMessage={errorMessage} 
       />
     </div>

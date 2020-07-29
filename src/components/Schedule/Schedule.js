@@ -17,7 +17,8 @@ const Schedule = props => {
     updateTask,
     currentTask,
     updateCurrentTask,
-    deleteTask
+    deleteTask,
+    overwriteTask
   } = props
 
   const taskInSchedule = (week, day, hour) => {
@@ -81,7 +82,8 @@ const Schedule = props => {
       updateTask={updateTask}
       deleteTask={deleteTask}
       errorModalVisible={errorModalVisible}
-      errorMessage={errorMessage} 
+      errorMessage={errorMessage}
+      overwriteTask={overwriteTask} 
     />
   ) : (
     <div className="Schedule">
