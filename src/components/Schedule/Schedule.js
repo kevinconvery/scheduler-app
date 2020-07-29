@@ -42,7 +42,7 @@ const Schedule = props => {
     if (inBetween) return
 
     if (inSchedule) {
-      const { start, end, type } = taskArray[0]
+      const { start, end, type, description, location } = taskArray[0]
       const taskID = driverSchedule.indexOf(taskArray[0])
       return (
         <Task
@@ -51,6 +51,8 @@ const Schedule = props => {
           start={start} 
           end={end} 
           type={type}
+          description={description}
+          location={location}
           length={end - start}
           editTask={findTaskAndEdit}
         />

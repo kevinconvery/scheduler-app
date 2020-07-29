@@ -2,9 +2,25 @@ import React from 'react'
 import './Task.css'
 
 const Task = props => {
-  const { type, length, taskID, createTask, editTask, empty, position } = props
+  const { 
+    type, 
+    length, 
+    taskID, 
+    createTask, 
+    editTask, 
+    empty, 
+    position, 
+    description, 
+    location 
+  } = props
   const { week, hour, day } = position || { week: 1, hour: 0, day: 0 }
-  return !empty ? (
+  return empty ? (
+    <div 
+      className={`cell-w${week}-d${day}-h${hour} grid-cell`} 
+      onClick={() => createTask({week: week, day: day, hour: hour})}
+    >
+    </div>
+  ) : (
     <div 
       className={`Task task-${type.toLowerCase()}`}
       style={{
@@ -13,13 +29,7 @@ const Task = props => {
       onClick={() => editTask(taskID)}
       name={`task-${taskID}`}
     >
-      {type.toUpperCase()}
-    </div>
-  ) : (
-    <div 
-      className={`cell-w${week}-d${day}-h${hour} grid-cell`} 
-      onClick={() => createTask({week: week, day: day, hour: hour})}
-    >
+      {description || type.toUpperCase()}{location && ` @ ${location}`}
     </div>
   )
 }
