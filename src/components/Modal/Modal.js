@@ -150,6 +150,7 @@ const Modal = props => {
             value={endTime}
           >
             {scheduleTimes
+              .slice(parseInt(startTime) + 1, scheduleTimes.length)
               .map(time => (
                 <option
                   key={`end-time-${time}`}
@@ -204,12 +205,12 @@ const Modal = props => {
         </div>
         <button 
           type="submit"
-          className="create-task-button"
+          className="modal-btn create-task-button"
         >
           Create Task
         </button>
         <button
-          className="toggle-modal-view-button"
+          className="modal-btn toggle-modal-view-button"
           onClick={() => toggleModalView("CREATE")}
         >
           Toggle View
@@ -222,13 +223,13 @@ const Modal = props => {
           </div>
           <div className="button-section">
             <button 
-              className="confirm-overwrite-button"
+              className="modal-btn confirm-overwrite-button"
               onClick={e => confirmCreateOverwrite(e)}
             >
               Confirm
             </button>
             <button 
-              className="toggle-modal-view-button"
+              className="modal-btn toggle-modal-view-button"
               onClick={() => toggleModalView("ERROR")}
             >
               Cancel
@@ -316,6 +317,7 @@ const Modal = props => {
             onChange={e => setEditTask({...editTask, end: parseInt(e.target.value)})}
           >
             {scheduleTimes
+              .slice(editTask.end)
               .map(time => (
                 <option
                   key={`end-time-${time}`}
@@ -370,11 +372,13 @@ const Modal = props => {
         </div>
         <button 
           type="submit"
-          className="update-task-button"
+          className="modal-btn update-task-button"
         >
           Update Task
         </button>
-        <button onClick={e => handleDeleteTask(e)}>
+        <button
+          className="modal-btn delete-task-button"
+          onClick={e => handleDeleteTask(e)}>
           Delete Task
         </button>
       </form>
@@ -385,13 +389,13 @@ const Modal = props => {
           </div>
           <div className="button-section">
             <button 
-              className="confirm-overwrite-button"
+              className="modal-btn confirm-overwrite-button"
               onClick={e => confirmUpdateOverwrite(e)}
             >
               Confirm
             </button>
             <button 
-              className="toggle-modal-view-button"
+              className="modal-btn toggle-modal-view-button"
               onClick={() => toggleModalView("ERROR")}
             >
               Cancel
@@ -400,7 +404,7 @@ const Modal = props => {
         </div>
       )}
       <button
-        className="toggle-modal-view-button" 
+        className="modal-btn toggle-modal-view-button" 
         onClick={() => toggleModalView("EDIT")}
       >
         Toggle View
