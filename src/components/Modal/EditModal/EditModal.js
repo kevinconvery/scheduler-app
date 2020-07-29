@@ -112,7 +112,7 @@ const EditModal = props => {
             onChange={e => setEditTask({...editTask, end: parseInt(e.target.value)})}
           >
             {scheduleTimes
-              .slice(editTask.end)
+              .slice(parseInt(editTask.start) + 1)
               .map(time => (
                 <option
                   key={`end-time-${time}`}
