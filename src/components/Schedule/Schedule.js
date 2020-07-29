@@ -2,7 +2,8 @@ import React from 'react'
 import { scheduleTimes, weekdays } from '../../data'
 import './Schedule.css'
 import Task from '../Task/Task'
-import Modal from '../Modal/Modal'
+import CreateModal from '../Modal/CreateModal/CreateModal'
+import EditModal from '../Modal/EditModal/EditModal'
 
 const Schedule = props => {
   const { 
@@ -73,17 +74,29 @@ const Schedule = props => {
   }
 
   return createModalVisible || editModalVisible ? (
-    <Modal 
-      modalType={createModalVisible ? "CREATE" : "EDIT"}
-      toggleModalView={toggleModal}
-      createTask={createTask}
-      currentTask={currentTask}
-      updateTask={updateTask}
-      deleteTask={deleteTask}
-      errorModalVisible={errorModalVisible}
-      errorMessage={errorMessage}
-      overwriteTask={overwriteTask} 
-    />
+    (createModalVisible ?
+      <CreateModal 
+        toggleModalView={toggleModal}
+        createTask={createTask}
+        errorModalVisible={errorModalVisible}
+        errorMessage={errorMessage}
+        overwriteTask={overwriteTask}
+        initialWeek={1}
+        initialDay={0}
+        initialStartHour={0} 
+      />
+    :     
+      <EditModal 
+        toggleModalView={toggleModal}
+        createTask={createTask}
+        currentTask={currentTask}
+        updateTask={updateTask}
+        deleteTask={deleteTask}
+        errorModalVisible={errorModalVisible}
+        errorMessage={errorMessage}
+        overwriteTask={overwriteTask} 
+      />
+    )
   ) : (
     <div className="Schedule">
       <div className="container">
