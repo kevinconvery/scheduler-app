@@ -29,11 +29,12 @@ const CreateModal = props => {
 
   return ( 
     <div className="CreateModal">
-      {errorModalVisible || (
-        <form
-          className="create-item-form" 
-          onSubmit={handleCreateItemSubmit}
-        >
+    {errorModalVisible || (
+      <form
+      className="create-item-form" 
+      onSubmit={handleCreateItemSubmit}
+      >
+        <h3>CREATE NEW TASK</h3>
           <div className="form-field">
             <label htmlFor="driver">Driver:</label>
             <select 

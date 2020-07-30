@@ -2,7 +2,6 @@
 
 .EditModal {
   display: flex;
-  padding-top: 2rem;
   width: 80%;
   height: 90vh;
   align-items: center;
@@ -12,6 +11,10 @@
   animation-duration: 1.5s;
   animation-name: slidein;
   animation-iteration-count: 1;
+}
+
+.EditModal h3 {
+  text-align: center;
 }
 
 @keyframes slidein {

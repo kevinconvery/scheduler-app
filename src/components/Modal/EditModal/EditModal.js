@@ -35,11 +35,12 @@ const EditModal = props => {
 
   return (
     <div className="EditModal">
-      {errorModalVisible || (
-        <form
-          className="edit-item-form" 
-          onSubmit={handleUpdateItemSubmit}
-        >
+    {errorModalVisible || (
+      <form
+        className="edit-item-form" 
+        onSubmit={handleUpdateItemSubmit}
+      >
+        <h3>UPDATE/DELETE TASK</h3>
           <div className="form-field">
             <label htmlFor="driver">Driver:</label>
             <select 
