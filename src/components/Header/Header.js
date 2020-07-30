@@ -39,7 +39,7 @@ const Header = props => {
     updateScheduleInterval(parseInt(e.target.value))  
   }
 
-  const handleClick = e => {
+  const handleWeekSelect = e => {
     e.target.className.includes('week-select-right') ? updateWeek(week + 1) : updateWeek(week - 1)
   }
   
@@ -131,12 +131,12 @@ const Header = props => {
       <div className="week-select-section">
         {week > 1 && <button 
           className="week-select-button week-select-left"
-          onClick={handleClick} 
+          onClick={handleWeekSelect} 
         />}
         <span>Week {week}</span>
         {week < 52 && <button 
           className="week-select-button week-select-right"
-          onClick={handleClick} 
+          onClick={handleWeekSelect} 
         />}
       </div>
       <div className="download-schedule-section">
