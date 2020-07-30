@@ -72,7 +72,6 @@ const Schedule = props => {
 
   const createTaskWithPosition = position => {
     const { day, week, hour } = position
-    console.log(`Position of task: ${JSON.stringify(position, null, 4)}`)
     const task = {
       driver_id: currentDriver,
       day: parseInt(day),
@@ -83,7 +82,6 @@ const Schedule = props => {
       location: '',
       description: '',
     }
-    console.log(`value of task being created: ${JSON.stringify(task, null, 4)}`)
     updateCurrentTask(task)
     toggleModal("CREATE")
   }
