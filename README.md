@@ -4,10 +4,16 @@
 
 This app has been designed as my entry into the Summer Challenge.
 
-It is written in React with the [react-csv](https://www.npmjs.com/package/react-csv) library being used to render the CSV download file. 
+It is written in React with the [react-csv](https://www.npmjs.com/package/react-csv) library being used to render the CSV download file.
 
-# Usage
+I have also deployed the application [here](https://rr-summer-2020-kc.herokuapp.com/).
 
-Click on the empty squares in the grid to begin adding new tasks to the schedule. You can also click on a created task to edit the data within it, including the driver, location and description. If a location and description are used, they will appear within the task created.
+## Usage
 
-# rr-summer-challenge
+# Creating and modifying schedule tasks
+
+Click on the empty squares in the schedule grid to begin adding new tasks to the schedule. You can also click on a created task to edit the data within it, including the driver, location and description. If a location and description are used, they will appear within the task created. If not, a placeholder will be used to denote what kind of task it is.
+
+# Downloading the schedule
+
+In the top right section of the header, you can change the driver schedule to download the information in different timeframe intervals. 
