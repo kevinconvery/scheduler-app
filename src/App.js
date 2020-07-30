@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Header from './components/Header/Header'
 import Schedule from './components/Schedule/Schedule'
 // dummy data
-import { taskList, testTasks } from './data'
+import { taskList } from './data'
 import './App.css'
 
 const App = () => {
@@ -41,7 +41,7 @@ const App = () => {
         break
       case `INVALID_TIME`:
         setErrorMessage(
-          `You cannot book or update an appointment with a start time after the end time.`
+          `You cannot book or update an appointment with a start time after or equal to the end time.`
         )
         break
       default:
@@ -126,6 +126,10 @@ const App = () => {
 
   const updateTask = (taskObject, overwrite = false) => {
     // we want to compare with the current task item removed since we know there's a conflict there
+    if (taskObject.start >= taskObject.end) {
+      handleError('INVALID_TIME')
+      return
+    }
     if (!taskConflict(taskObject) || overwrite) {
       // assign again here, since we want to replace the item in the full schedule
       const index = fullSchedule.indexOf(currentTask)
@@ -160,9 +164,9 @@ const App = () => {
     const taskObjectIndex = fullSchedule.indexOf(currentTask || conflict[0])
     console.log(`Value of task object index: ${taskObjectIndex}`)
     // this here isn't happening!!
-    // console.log(`schedule length before: ${schedule.length}`)
+    console.log(`schedule length before: ${schedule.length}`)
     schedule.splice(taskObjectIndex, 1)
-    // console.log(`schedule length after: ${schedule.length}`)
+    console.log(`schedule length after: ${schedule.length}`)
     // if it's being edited no need to push the additional object
     console.log(`value of edit: ${edit}`)
     edit || schedule.push(taskObject)
