@@ -142,7 +142,7 @@ const Header = props => {
       <div className="download-schedule-section">
         <div className="download-dropdown-section">
           <label htmlFor="download-dropdown">
-            Driver Schedule
+            Schedule Interval
           </label>
           <select 
             name="download-dropdown" 
