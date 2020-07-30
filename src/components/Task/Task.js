@@ -1,9 +1,12 @@
 import React from 'react'
 import './Task.css'
+import { scheduleTimes } from '../../data'
 
 const Task = props => {
   const { 
-    type, 
+    type,
+    start,
+    end, 
     length, 
     taskID, 
     createTask, 
@@ -29,7 +32,10 @@ const Task = props => {
       onClick={() => editTask(taskID)}
       name={`task-${taskID}`}
     >
-      {description || type.toUpperCase()}{location && ` @ ${location}`}
+      <ul>
+        <li>{description || type.toUpperCase()}{location && ` @ ${location}`}</li>
+        <li>{`${scheduleTimes[start]} - ${scheduleTimes[end]}`}</li>
+      </ul>
     </div>
   )
 }
