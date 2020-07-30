@@ -120,7 +120,8 @@ const Schedule = props => {
   ) : (
     <div className="Schedule">
       <div className="container">
-        <div className="schedule-header">
+      <div className="schedule-header">
+        <div className="header-left"></div>
           <ul>
             {weekdays.map(weekday => (
               <li key={weekday}>{weekday}</li>
