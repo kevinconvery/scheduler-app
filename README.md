@@ -8,6 +8,6 @@ It is written in React with the [react-csv](https://www.npmjs.com/package/react-
 
 # Usage
 
-Click on the empty squares in the grid to begin adding new tasks to the schedule. You can also click on a created task to edit the data within it.
+Click on the empty squares in the grid to begin adding new tasks to the schedule. You can also click on a created task to edit the data within it, including the driver, location and description. If a location and description are used, they will appear within the task created.
 
 # rr-summer-challenge
