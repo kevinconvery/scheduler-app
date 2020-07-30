@@ -156,6 +156,7 @@ const App = () => {
 
   return (
     <div className="App">
+    {(createModalVisible || editModalVisible || errorModalVisible) || (
       <Header 
         week={currentWeek}
         scheduleInterval={scheduleInterval}
@@ -165,6 +166,7 @@ const App = () => {
         updateScheduleInterval={setScheduleInterval}
         currentDriver={currentDriver} 
       />
+    )}
 
       <Schedule 
         driverSchedule={driverSchedule} 
