@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Header from './components/Header/Header'
 import Schedule from './components/Schedule/Schedule'
-// dummy data
-import { taskList } from './data'
+import { taskList, errorMessages } from './data'
 import './App.css'
 
 const App = () => {
@@ -27,26 +26,7 @@ const App = () => {
 
   const handleError = error => {
     setErrorModalVisible(true)
-    switch (error) {
-      case `CREATE_CONFLICT`:
-        setErrorMessage(`
-          Creating this task would cause it to conflict with another task. Would you
-          like to overwrite the existing task?
-        `)
-        break
-      case `UPDATE_CONFLICT`:
-        setErrorMessage(
-          `Updating this task would cause it to conflict with another task. Would you like 
-          to delete the previous task you had booked?`)
-        break
-      case `INVALID_TIME`:
-        setErrorMessage(
-          `You cannot book or update an appointment with a start time after or equal to the end time.`
-        )
-        break
-      default:
-        break
-    }
+    setErrorMessage(errorMessages[error])
   }
 
   const toggleModalVisibility = type => {

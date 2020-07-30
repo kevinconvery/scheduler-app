@@ -1,3 +1,13 @@
+// data/index.js
+// This file is intended to provide some data, but also to move constant values out of the 
+// components.
+
+export const errorMessages = {
+  CREATE_CONFLICT: `Creating this task would cause it to conflict with another task. Would you like to overwrite the existing task?`,
+  UPDATE_CONFLICT:`Updating this task would cause it to conflict with another task. Would you like to delete the previous task you had booked?`,
+  INVALID_TIME: `You cannot book or update an appointment with a start time after or equal to the end time.`
+}
+
 export const taskList = [
   {
     day: 0,
