@@ -73,7 +73,6 @@ const App = () => {
 
   // task management functions in controller (app)
   const createTask = taskObject => {
-    console.log(`value of task object: ${JSON.stringify(taskObject, null, 4)}`)
     if (!taskConflict(taskObject)) {
       const schedule = fullSchedule
       // go ahead and create the object
@@ -88,7 +87,6 @@ const App = () => {
   }
 
   const getConflictArray = taskObject => {
-    console.log(`Value of task object in getConflictArray: ${JSON.stringify(taskObject, null, 4)}`)
     return fullSchedule.filter((scheduleItem) => (
       // matching week, day, driver_id then checking 
       // if either the start or end times are between an 
@@ -117,10 +115,7 @@ const App = () => {
 
   const taskConflict = taskObject => {
     let conflict = getConflictArray(taskObject)
-    console.log(`Current task value in taskconflict function: ${JSON.stringify(currentTask, null, 4)}`)
     conflict = conflict.filter(item => item !== currentTask)
-    console.log(`Conflict array: ${JSON.stringify(conflict, null, 4)}`)
-    console.log(`Conflict length: ${conflict.length}`)
     return conflict.length > 0 ? true : false
   }
 
@@ -156,21 +151,11 @@ const App = () => {
 
   const overwriteTask = (taskObject, edit=false) => {
     const conflict = getConflictArray(taskObject).filter(item => item !== currentTask)
-    console.log(`conflict array: ${JSON.stringify(conflict, null, 4)}`)
     const index = fullSchedule.indexOf(conflict[0])
     let schedule = fullSchedule
     schedule.splice(index, 1, taskObject)
-    console.log(`value of current task: ${JSON.stringify(currentTask, null, 4)}`)
-    const taskObjectIndex = fullSchedule.indexOf(currentTask || conflict[0])
-    console.log(`Value of task object index: ${taskObjectIndex}`)
-    // this here isn't happening!!
-    console.log(`schedule length before: ${schedule.length}`)
-    schedule.splice(taskObjectIndex, 1)
-    console.log(`schedule length after: ${schedule.length}`)
-    // if it's being edited no need to push the additional object
-    console.log(`value of edit: ${edit}`)
-    edit || schedule.push(taskObject)
-    console.log(`schedule length now: ${schedule.length}`)
+    const taskObjectIndex = fullSchedule.indexOf(currentTask)
+    edit && schedule.splice(taskObjectIndex, 1)
     setFullSchedule(schedule)
     refreshDriverSchedule()
     setEditModalVisible(false)
