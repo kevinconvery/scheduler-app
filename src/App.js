@@ -80,7 +80,8 @@ const App = () => {
       schedule.push(taskObject)
       setFullSchedule(schedule)
       refreshDriverSchedule()
-      setCreateModalVisible(false)   
+      setCreateModalVisible(false)
+      setCurrentTask()   
     } else {
       handleError("CREATE_CONFLICT")
     }
@@ -116,6 +117,7 @@ const App = () => {
 
   const taskConflict = taskObject => {
     let conflict = getConflictArray(taskObject)
+    console.log(`Current task value in taskconflict function: ${JSON.stringify(currentTask, null, 4)}`)
     conflict = conflict.filter(item => item !== currentTask)
     console.log(`Conflict array: ${JSON.stringify(conflict, null, 4)}`)
     console.log(`Conflict length: ${conflict.length}`)
@@ -149,16 +151,22 @@ const App = () => {
   }
 
   const overwriteTask = (taskObject, edit=false) => {
-    const conflict = getConflictArray(taskObject)
+    const conflict = getConflictArray(taskObject).filter(item => item !== currentTask)
+    console.log(`conflict array: ${JSON.stringify(conflict, null, 4)}`)
     const index = fullSchedule.indexOf(conflict[0])
     let schedule = fullSchedule
     schedule.splice(index, 1, taskObject)
-    console.log(`value of current task: ${JSON.stringify(currentTask)}`)
+    console.log(`value of current task: ${JSON.stringify(currentTask, null, 4)}`)
     const taskObjectIndex = fullSchedule.indexOf(currentTask || conflict[0])
     console.log(`Value of task object index: ${taskObjectIndex}`)
+    // this here isn't happening!!
+    // console.log(`schedule length before: ${schedule.length}`)
     schedule.splice(taskObjectIndex, 1)
+    // console.log(`schedule length after: ${schedule.length}`)
     // if it's being edited no need to push the additional object
+    console.log(`value of edit: ${edit}`)
     edit || schedule.push(taskObject)
+    console.log(`schedule length now: ${schedule.length}`)
     setFullSchedule(schedule)
     refreshDriverSchedule()
     setEditModalVisible(false)

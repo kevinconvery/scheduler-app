@@ -78,7 +78,7 @@ const Schedule = props => {
       day: parseInt(day),
       week: parseInt(week),
       start: parseInt(hour),
-      end: parseInt(hour),
+      end: parseInt(hour) + 1,
       type: 'Pickup',
       location: '',
       description: '',
