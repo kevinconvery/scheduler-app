@@ -22,7 +22,7 @@ Click on the empty squares in the schedule grid to begin adding new tasks to the
 
 ![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/create-task-screen.png "This screen will allow you to build a task from the information provided.")
 
-![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/masterhttps://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/create-overwrite-screen.png "If there is a task conflict, the app will prompt you with an appropriate error.")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/create-overwrite-screen.png "If there is a task conflict, the app will prompt you with an appropriate error.")
 
 ![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/toggle-week-menu-image.png "Toggling the arrows on the week menu will cycle through schedule entries in a given week.")
 
