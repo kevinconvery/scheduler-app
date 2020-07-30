@@ -35,7 +35,6 @@ const EditModal = props => {
 
   return (
     <div className="EditModal">
-      <h3>EDIT/DELETE MODAL VIEW</h3>
       <form
         className="edit-item-form" 
         onSubmit={handleUpdateItemSubmit}

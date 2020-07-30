@@ -29,8 +29,7 @@ const CreateModal = props => {
 
   return ( 
     <div className="CreateModal">
-      <h3>CREATE ITEM MODAL VIEW</h3>
-      <form
+      {errorModalVisible || (<form
         className="create-item-form" 
         onSubmit={handleCreateItemSubmit}
       >
@@ -176,7 +175,7 @@ const CreateModal = props => {
             </button>
           </div>
         )}
-      </form>
+      </form>)}
       {errorModalVisible && (
         <div className="error-modal">
           <div className="error-message">
