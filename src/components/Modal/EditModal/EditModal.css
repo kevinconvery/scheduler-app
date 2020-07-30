@@ -2,6 +2,7 @@
 
 .EditModal {
   display: flex;
+  padding-top: 1rem;
   width: 80%;
   height: 90vh;
   align-items: center;
