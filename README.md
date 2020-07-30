@@ -14,17 +14,27 @@ Clone the repository, then use `npm install` to install its dependencies and `np
 
 ## Creating tasks
 
-![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/scheduler-main-view-2.png "The main schedule view shows tasks in the schedule as well as available time slots as the mouse pointer moves over them.")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/scheduler-main-view-2.png "Picture of the main view, no cells highlighted.")
 
-![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/scheduler-main-view-1.png "If a task in the schedule has a description and/or a location, this will be reflected in the schedule view.")
+The main schedule view shows tasks in the schedule as well as available time slots as the mouse pointer moves over them.
+
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/scheduler-main-view-1.png "Picture of the main view with descriptions and/or locations, and also a highlighted cell.")
+
+If a task in the schedule has a description and/or a location, this will be reflected in the schedule view.
 
 Click on the empty squares in the schedule grid to begin adding new tasks to the schedule. You can also click on a created task to modify the data within it. If a location and/or description are provided, they will appear within the task created. If not, a placeholder will be used to denote what kind of task it is.
 
-![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/create-task-screen.png "This screen will allow you to build a task from the information provided.")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/create-task-screen.png "Create task screen")
 
-![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/create-overwrite-screen.png "If there is a task conflict, the app will prompt you with an appropriate error.")
+The create task menu will allow you to build a task from the information provided.
 
-![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/toggle-week-menu-image.png "Toggling the arrows on the week menu will cycle through schedule entries in a given week.")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/create-overwrite-screen.png "Error screen from the create menu")
+
+If there is a task conflict, the menu will prompt you with an appropriate error.
+
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/toggle-week-menu-image.png "Week toggle menu image.")
+
+Toggling the arrows on the week menu in the schedule view will cycle through schedule entries in a given week.
 
 ## Updating and deleting tasks
 
