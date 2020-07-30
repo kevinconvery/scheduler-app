@@ -14,21 +14,21 @@ Clone the repository, then use `npm install` to install its dependencies and `np
 
 ## Creating tasks
 
-![alt-text](public\images\scheduler-main-view-2.png "The main schedule view shows tasks in the schedule as well as available time slots as the mouse pointer moves over them.")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/scheduler-main-view-2.png "The main schedule view shows tasks in the schedule as well as available time slots as the mouse pointer moves over them.")
 
-![alt-text](public\images\scheduler-main-view-1.png "If a task in the schedule has a description and/or a location, this will be reflected in the schedule view.")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/scheduler-main-view-1.png "If a task in the schedule has a description and/or a location, this will be reflected in the schedule view.")
 
 Click on the empty squares in the schedule grid to begin adding new tasks to the schedule. You can also click on a created task to modify the data within it. If a location and/or description are provided, they will appear within the task created. If not, a placeholder will be used to denote what kind of task it is.
 
-![alt-text](public\images\create-task-screen.png "This screen will allow you to build a task from the information provided.")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/create-task-screen.png "This screen will allow you to build a task from the information provided.")
 
-![alt-text](public\images\create-overwrite-screen.png "If there is a task conflict, the app will prompt you with an appropriate error.")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/masterhttps://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/create-overwrite-screen.png "If there is a task conflict, the app will prompt you with an appropriate error.")
 
-![alt-text](public\images\toggle-week-menu-image.png "Toggling the arrows on the week menu will cycle through schedule entries in a given week.")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/toggle-week-menu-image.png "Toggling the arrows on the week menu will cycle through schedule entries in a given week.")
 
 ## Updating and deleting tasks
 
-![alt-text](public\images\edit-task-screen.png "Edit Task Screen")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/edit-task-screen.png "Edit Task Screen")
 
 Tasks can be updated and deleted by clicking on them. This will  Any field can be updated and this will render the schedule based on the updated information. 
 
@@ -36,10 +36,10 @@ If there is a task conflict, the screen will prompt with a request to overwrite 
 
 ## Downloading the schedule
 
-![alt-text](public\images\schedule-download-menu.png "Scheduler Download Menu")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/schedule-download-menu.png "Scheduler Download Menu")
 
 In the top right section of the header, you can change the driver schedule to download the information in different timeframe intervals. The intervals are: 2 days, 4 days, 7 days, 14 days and 28 days. This will produce a CSV file with counts of pickups, dropoffs and other appointments in the appropriate timeframes specified.
 
-![alt-text](public\images\download-spreadsheet-sample.png ".")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/download-spreadsheet-sample.png "Sample timeframe report for a driver.")
 
 The schedule downloaded will vary based on the driver selected, the schedule interval specified and entries in the schedule. When the schedule is updated, the report produced will also update.
