@@ -40,7 +40,7 @@ const EditModal = props => {
         className="edit-item-form" 
         onSubmit={handleUpdateItemSubmit}
       >
-        <h3>UPDATE/DELETE TASK</h3>
+        <h3>EDIT TASK</h3>
           <div className="form-field">
             <label htmlFor="driver">Driver:</label>
             <select 
@@ -179,6 +179,12 @@ const EditModal = props => {
                 onClick={e => handleDeleteTask(e)}>
                 Delete Task
               </button>
+              <button
+                className="modal-btn toggle-modal-view-button"
+                onClick={() => toggleModalView("EDIT")}
+              >
+                Return to Schedule
+              </button>
             </div>
           )}
         </form>
@@ -203,14 +209,6 @@ const EditModal = props => {
             </button>
           </div>
         </div>
-      )}
-      {errorModalVisible || (
-        <button
-          className="modal-btn toggle-modal-view-button" 
-          onClick={() => toggleModalView("EDIT")}
-        >
-          Toggle View
-        </button>
       )}
     </div>    
   )

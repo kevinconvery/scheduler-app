@@ -173,7 +173,7 @@ const CreateModal = props => {
                 className="modal-btn toggle-modal-view-button"
                 onClick={() => toggleModalView("CREATE")}
               >
-                Toggle View
+                Return to Schedule
               </button>
             </div>
           )}
