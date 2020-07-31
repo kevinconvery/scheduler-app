@@ -14,9 +14,9 @@ Clone the repository, then use `npm install` to install its dependencies and `np
 
 ## Creating tasks
 
-![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/scheduler-main-view-2.png "Picture of the main view, no cells highlighted.")
+![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/scheduler-main-view-2.png "Picture of the schedule view with a selected cell highlighted in blue")
 
-The main schedule view shows tasks in the schedule as well as available time slots as the mouse pointer moves over them.
+The main schedule view shows tasks in the schedule as well as available time slots highlighted in blue as the mouse pointer moves over them.
 
 ![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/scheduler-main-view-1.png "Picture of the main view with descriptions and/or locations, and also a highlighted cell.")
 
@@ -40,9 +40,9 @@ Toggling the arrows on the week menu in the schedule view will cycle through sch
 
 ![alt-text](https://github.com/kevinconvery/rr-summer-challenge/blob/master/public/images/edit-task-screen.png "Edit Task Screen")
 
-Tasks can be updated and deleted by clicking on them. This will  Any field can be updated and this will render the schedule based on the updated information. 
+Tasks can be updated and deleted by clicking on them. When the schedule is updated, it will render based on the updated schedule information. 
 
-If there is a task conflict, the screen will prompt with a request to overwrite the existing task.
+If a time conflict occurs when updating a task with another existing task, the screen will prompt with a request to overwrite the conflicting task.
 
 ## Downloading the schedule
 
