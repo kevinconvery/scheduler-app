@@ -1,6 +1,6 @@
 # Rose Rocket Summer Challenge 2020 - Scheduler App
 
-This app has been designed as my entry into Rose Rocket's coding challenge, a dispatcher/driver task scheduling app.
+This app is my entry into Rose Rocket's coding challenge and is a task scheduling app for a dispatcher or driver.
 
 It is written in [React](https://reactjs.org/) set up using [create-react-app](https://github.com/facebook/create-react-app) and uses the [react-csv](https://www.npmjs.com/package/react-csv) library to generate the driver task spreadsheet report.
 
